@@ -439,10 +439,10 @@ to rand-turn
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-176
-10
-719
-348
+7
+49
+550
+387
 -1
 -1
 13.72
@@ -466,10 +466,10 @@ ticks
 30.0
 
 BUTTON
-20
-11
-168
-44
+7
+10
+155
+43
 Setup Evnironment
 setup
 NIL
@@ -483,10 +483,10 @@ NIL
 1
 
 BUTTON
-23
-140
-169
-173
+163
+10
+309
+43
 NIL
 run-controller
 T
@@ -500,57 +500,57 @@ NIL
 1
 
 SLIDER
-20
-52
-169
-85
+558
+51
+707
+84
 number-robots
 number-robots
 1
 10
-1.0
+10.0
 1
 1
 NIL
 HORIZONTAL
 
 TEXTBOX
-24
-443
-380
-461
+11
+480
+367
+498
 Genotype selected for mutation
 11
 0.0
 1
 
 INPUTBOX
-765
-13
-1066
-209
-Multi_Genotype
-0000011010100011100110001110110010101\n1011101000010101001111011101101110011\n0101001000111110001110011001010000001\n1111111111100000001011001111110001101\n0101001011011111000111011111101010101\n0010101110010011110001000101110001101\n0000111011111101111101000010011011111\n1111100101110000101110010110111001100\n0111001001000111101011011100010110111\n1000001000010001000011101100111011000
+595
+151
+896
+347
+multi_genotype
+0000100111011111010111110101000010001\n0100110101011001010101000110011100000\n0010000011111111000100001110010000000\n1101101101011011111110110000110000000\n1101000000000101001011001110000100111\n0001101111001110111110010011011010101\n1100101000110110100001100000110110100\n0100101000100000110100100101100011111\n1111011010100001001100000110101101111\n0110110011101100000011001100001010110
 1
 1
 String
 
 INPUTBOX
-21
-356
-1820
-437
-Phenotype
-ifelse not wall-back? [move-ahead][ifelse not wall-ahead? [turn-right][ifelse not wall-back? [move-ahead][ifelse not wall-back? [turn-left][ifelse not wall-left? [move-ahead][turn-right]]]]]
+8
+393
+1807
+474
+phenotype
+ifelse not wall-ahead? [move-ahead][ifelse not wall-left? [turn-left][ifelse not wall-ahead? [move-ahead][ifelse not wall-right? [turn-left][move-back]]]]
 1
 0
 String
 
 SLIDER
-35
-530
-1058
-563
+22
+567
+967
+600
 bit_selector
 bit_selector
 1
@@ -562,10 +562,10 @@ NIL
 HORIZONTAL
 
 BUTTON
-26
-570
-97
-603
+13
+607
+84
+640
 NIL
 Mutate
 NIL
@@ -579,17 +579,17 @@ NIL
 1
 
 OUTPUT
-21
-459
-1134
-529
+8
+496
+977
+566
 47
 
 SLIDER
-724
-44
-757
-192
+555
+178
+588
+326
 Number
 Number
 1
@@ -601,62 +601,62 @@ NIL
 VERTICAL
 
 CHOOSER
-27
-626
-165
-671
+14
+663
+124
+708
 Pather_1
 Pather_1
 1 2 3 4 5
 0
 
 CHOOSER
-27
-674
-165
-719
+14
+712
+124
+757
 Pather_2
 Pather_2
 6 7 8 9 10
 0
 
 INPUTBOX
-179
-626
-459
-686
-Pather_1_Genotype
-NIL
+128
+663
+429
+723
+pather_1_genotype
+0110110011101100000011001110000100111
 1
 0
 String
 
 INPUTBOX
-179
-696
-459
-756
-Pather_2_Genotype
-NIL
+128
+733
+429
+793
+pather_2_genotype
+1101000000000101001011001100001010110
 1
 0
 String
 
 CHOOSER
-473
-627
-611
-672
+434
+662
+572
+707
 Bit_Position
 Bit_Position
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36
 25
 
 BUTTON
-473
-696
-610
-756
+434
+732
+571
+792
 Crossover
 Crossover
 NIL
@@ -670,32 +670,32 @@ NIL
 1
 
 INPUTBOX
-628
-627
-946
-687
-Crossover_1_Genotype
-NIL
+578
+662
+878
+722
+crossover_1_genotype
+0110110011101100000011001100001010110
 1
 0
 String
 
 INPUTBOX
-628
-697
-946
-757
-Crossover_2_Genotype
-NIL
+577
+732
+877
+792
+crossover_2_genotype
+1101000000000101001011001110000100111
 1
 0
 String
 
 BUTTON
-965
-626
-1050
-754
+885
+662
+970
+790
 NIL
 Remplace
 NIL
@@ -709,10 +709,10 @@ NIL
 1
 
 BUTTON
-28
-722
-166
-755
+15
+760
+123
+793
 NIL
 Load
 NIL
@@ -726,10 +726,10 @@ NIL
 1
 
 BUTTON
-725
-247
-1073
-347
+553
+348
+896
+386
 NIL
 Load_Genotype
 NIL
@@ -743,10 +743,10 @@ NIL
 1
 
 BUTTON
-22
-98
-170
-131
+713
+51
+899
+84
 Load_Number_Robots
 setup-robots
 NIL
@@ -760,11 +760,11 @@ NIL
 1
 
 INPUTBOX
-1081
-11
-1823
-348
-Templates
+904
+48
+1810
+385
+templates
 ifelse not S1 [A1][A2]\nifelse not S1 [A1][ifelse not S2 [A2][A3]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][A4]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][A5]]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][ifelse not S5 [A5][A6]]]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][ifelse not S5 [A5][ifelse not S6 [A6][A7]]]]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][ifelse not S5 [A5][ifelse not S6 [A6][ifelse not S7 [A7][A8]]]]]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][ifelse not S5 [A5][ifelse not S6 [A6][ifelse not S7 [A7][ifelse not S8 [A8][A9]]]]]]]]\n
 1
 0

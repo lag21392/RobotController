@@ -1,0 +1,51 @@
+<html >
+
+<head>
+<h1 align="center">ROBOT CONTROLLER </h1>
+</head>
+
+<body>
+<script type="text/javascript">  
+function removeOfIframe() { 
+document.getElementById("frame_robotcontroller");
+document.getElementsByClassName("netlogo-header")[0].remove();
+document.getElementsByClassName("netlogo-display-horizontal")[0].remove();
+document.getElementsByClassName("netlogo-tab")[0].remove();
+
+}
+</script>
+<style type="text/css">
+.resizable-iframe{
+    overflow: visible;
+    height: auto;
+    width: auto;
+    position: relative;
+}
+ 
+.resizable-iframe iframe{
+    position: relative;
+    z-index: 0; 
+}   
+ 
+.iframe-cover{
+    position: absolute;   
+    z-index: 99999;
+    background: white;
+}
+</style>
+
+
+<div class="resizable-iframe">
+<div style="height: 7%; width: 100%; top: 0px;" class="iframe-cover"></div>
+<div style="height: 18%; width: 100%; top: 82%;" class="iframe-cover"></div>
+<iframe id="frame_robotcontroller" src="http://www.netlogoweb.org/web?https://raw.githubusercontent.com/lag21392/RobotController/master/RobotController.nlogo" width="100%" height="125%" frameborder="0" align="center"> 
+
+</div>
+
+
+</body>
+
+
+</html>
+
+

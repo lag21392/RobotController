@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Material Design Bootstrap</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.min.css" rel="stylesheet">
+</head>
+
+<body class="grey lighten-3">
+
+    <!--Main Navigation-->
+    <header>
+
+        <!-- Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+            <div class="container">
+
+                <!-- Brand -->
+                <a class="navbar-brand waves-effect" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
+                    <strong class="blue-text">Robot Controller</strong>
+                </a>
+
+                <!-- Collapse -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Links -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                    <!-- Left -->
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item ">
+                          <a class="nav-link waves-effect" href="home-page.html">Home
+                            <span class="sr-only">(current)</span>
+                          </a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link waves-effect" href="robot-controller-plataform.html" target="_blank">RobotController Plataform
+                            
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link waves-effect" href="about.html" target="_blank">About RC</a>
+                        </li>
+                     
+                        <li class="nav-item ">
+                          <a class="nav-link waves-effect" href="contact.html" >Contact
+                            
+                          </a>
+                          
+                        </li>
+                    </ul>
+                    <!-- Right -->
+                    <ul class="navbar-nav nav-flex-icons">
+                        <li class="nav-item">
+                            <a href="https://www.facebook.com/mdbootstrap" class="nav-link waves-effect" target="_blank">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded waves-effect"
+                                target="_blank">
+                                <i class="fab fa-github mr-2"></i>MDB GitHub
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+        </nav>
+        <!-- Navbar -->
+
+    </header>
+    <!--Main Navigation-->
+
+    <!--Main layout-->
+    
+        <div  >
+
+
+
+                <style type="text/css">
+                    .resizable-iframe{
+                        overflow: visible;
+                        height: auto;
+                        width: auto;
+                        position: relative;
+                    }
+                     
+                    .resizable-iframe iframe{
+                        position: relative;
+                        z-index: 0; 
+                    }   
+                     
+                    .iframe-cover{
+                        position: absolute;   
+                        z-index: 1;
+                        background: white;
+                        
+                    }
+                    .frame-web{
+                        min-width:1280px;
+                        max-width:1920px;
+                        min-height:900px
+                        max-height:1350px
+                    }
+                </style>
+
+
+                <div class="resizable-iframe">
+                    <div style="height: 7%; width: 100%; top: 0px;" class="iframe-cover"><h1 align="center">ROBOT CONTROLLER </h1></div>
+
+                    <div style="height: 30%; width: 100%; top: 70%;" class="iframe-cover"></div>
+                    <center>
+                    <iframe id="frame_robotcontroller" src="http://www.netlogoweb.org/web?https://raw.githubusercontent.com/lag21392/RobotController/master/RobotController.nlogo" width="1920px" height="1350px" frameborder="0" align="center" > 
+                    </center>
+                </div>
+
+
+
+        </div>
+    
+    <!--Main layout-->
+
+    
+    <!--/.Footer-->
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+    <!-- Initializations -->
+    <script type="text/javascript">
+        // Animations initialization
+        new WOW().init();
+    </script>
+</body>
+
+</html>

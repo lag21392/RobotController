@@ -549,7 +549,7 @@ String
 SLIDER
 22
 567
-967
+976
 600
 bit_selector
 bit_selector
@@ -581,7 +581,7 @@ NIL
 OUTPUT
 8
 496
-977
+998
 566
 47
 
@@ -762,7 +762,7 @@ NIL
 INPUTBOX
 904
 48
-1810
+1860
 385
 templates
 ifelse not S1 [A1][A2]\nifelse not S1 [A1][ifelse not S2 [A2][A3]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][A4]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][A5]]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][ifelse not S5 [A5][A6]]]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][ifelse not S5 [A5][ifelse not S6 [A6][A7]]]]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][ifelse not S5 [A5][ifelse not S6 [A6][ifelse not S7 [A7][A8]]]]]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][ifelse not S5 [A5][ifelse not S6 [A6][ifelse not S7 [A7][ifelse not S8 [A8][A9]]]]]]]]\n

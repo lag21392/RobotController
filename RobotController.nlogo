@@ -29,10 +29,13 @@
 
 
 ;; agents for the environment
+breed       [ pellets pellet ]
+pellets-own [ powerup? ]
 patches-own
 [
   wall?                  ;; true if the patch is a wall of the maze
   target?                ;; true if the patch is the target of the maze
+  pellet-grid?
 ]
 
 breed [robots robot]
@@ -43,6 +46,7 @@ globals
   step-time
   controller
   genotype
+  tool
 ]
 
 ;;;; SETUP ;;;;;;
@@ -54,7 +58,9 @@ to setup
   setup-patches
   setup-maze
   setup-robots
-  load-controller
+
+  set tool "Eraser"
+
 
 end
 
@@ -74,56 +80,65 @@ to initiate
   set Pather_1 1
   set Pather_2 6
   set Number 1
-  set number-robots 1
+  set number-robots 10
   set bit_selector 1
 end
 to Load_Genotype
-  load-controller
+
+  let Multi_Genotype_List load-Multi_Genotype_List
+  let number_genotype ""
+  set number_genotype (item (10 - Number) Multi_Genotype_List)
+  set genotype number_genotype
+  output-print genotype
+  set Phenotype load-controller number_genotype
 end
 
 
 
 
 to setup-maze
-  let maze ["EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
-"E0000000000000000000000000000000000000E"
-"E0000000000000000000000000000000000000E"
-"E0000000000000000000000000000000000000E"
-"E0000000000000000000000000000000000000E"
-"E0000000000000000000000000000000000000E"
-"E0000000000000000000000000000000000000E"
-"E0000000000000000000000000000000000000E"
-"E0000000000000000000000000000000000000E"
-"E00000000000000.......0000000000000000E"
-"E00000000000000.00*00.0000000000000000E"
-"E0000000000000000000000000000000000000E"
-"E0000000000000000000000000000000000000E"
-"E0000000000000000000000000000000000000E"
-"E0000000000000000000000000000000000000E"
-"E0000000000000000000000000000000000000E"
-"E0000000000000000000000000000000000000E"
-"E0000000000000000000000000000000000000E"
-"E0000000000000000000000000000000000000E"
-"E0000000000000000000000000000000000000E"
-"E0000000000000000000000000000000000000E"
-"E0000000000000000000000000000000000000E"
-"EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"]
+  let maze [
+ "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
+ "E0000000000000000000000000000000000000E"
+ "E0000000000000000000000000000000000000E"
+ "E0000000000000000000000000000000000000E"
+ "E0000000000000000000000000000000000000E"
+ "E0000000000000000000000000000000000000E"
+ "E0000000000000000000000000000000000000E"
+ "E0000000000000000000000000000000000000E"
+ "E0000000000000000000000000000000000000E"
+ "E00000000000000.......0000000000000000E"
+ "E00000000000000.00*00.0000000000000000E"
+ "E0000000000000000000000000000000000000E"
+ "E0000000000000000000000000000000000000E"
+ "E0000000000000000000000000000000000000E"
+ "E0000000000000000000000000000000000000E"
+ "E0000000000000000000000000000000000000E"
+ "E0000000000000000000000000000000000000E"
+ "E0000000000000000000000000000000000000E"
+ "E0000000000000000000000000000000000000E"
+ "E0000000000000000000000000000000000000E"
+ "E0000000000000000000000000000000000000E"
+ "E0000000000000000000000000000000000000E"
+ "E0000000000000000000000000000000000000E"
+ "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"]
   let maze-line ""
   let char ""
   let x 0
   let y 0
-  while [y < length maze ]
+  while [y > (-1 * length maze  ) ]
   [
-    set maze-line item y maze
+    set maze-line item (-1 * y) maze
+
     while [x < length maze-line]
     [
      set char item x maze-line
-     if char = "E" [ ask patch x (y + 2) [ext-wall]  ] ;; exterior wall
-     if char = "." [ ask patch x (y + 2) [int-wall]  ] ;; interior wall
-     if char = "*" [ ask patch x (y + 2) [add-target]] ;; target
+     if char = "E" [ ask patch x y [ext-wall]  ] ;; exterior wall
+     if char = "." [ ask patch x y [int-wall]  ] ;; interior wall
+     if char = "*" [ ask patch x y [add-target]] ;; target
      set x x + 1   ;; increase x to read next char
     ]
-    set y y + 1    ;; decrease a row, and
+    set y y - 1    ;; decrease a row, and
     set x 0        ;; reset x to read first char
   ]
 
@@ -152,10 +167,12 @@ end
 to setup-robots
   clear-turtles               ;; kill all previous turtles
   clear-ticks                 ;; resets the tick counter to zero
+  let colors [ 5 15 25 35 45 55 65 75 85 95 ]
   create-robots number-robots
   [
     set size 1.7              ;; robot size
-    set color green           ;; robot color
+    set color item 0 colors           ;; robot color
+    SET colors remove-item 0 colors
   ]
   reset-ticks                 ;; resets the tick counter to zero
   place-robots
@@ -201,7 +218,8 @@ to-report split [ text c ]
       ]
   report vector_strings
 end
-to load-controller
+to-report load-controller [number_genotype]
+  let phenotype_code ""
   set controller (split Templates "\n")
 
 ;  file-open ("templates.txt")
@@ -211,13 +229,13 @@ to load-controller
 
   ;;genotype load
 
-  let Multi_Genotype_List load-Multi_Genotype_List
-  set genotype (item (10 - Number) Multi_Genotype_List)
-  output-print genotype
+  ;let Multi_Genotype_List load-Multi_Genotype_List
+  ;set genotype (item (10 - Number) Multi_Genotype_List)
+
 
   ;;template load
-  let template string-to-binary-to-integer substring genotype 0 3
-  set Phenotype item template controller
+  let template string-to-binary-to-integer substring number_genotype 0 3
+  set phenotype_code item template controller
 
   let list-sensors [-1 -1 -1 -1 -1 -1 -1 -1]
   let list-actuators [-1 -1 -1 -1 -1 -1 -1 -1 -1]
@@ -226,9 +244,9 @@ to load-controller
    [
       ifelse (i < 8)
         ;;8 sensor load
-        [set list-sensors replace-item i list-sensors (string-to-binary-to-integer substring genotype (3 + (i * 2))  (5 + (i * 2)))]
+        [set list-sensors replace-item i list-sensors (string-to-binary-to-integer substring number_genotype (3 + (i * 2))  (5 + (i * 2)))]
         ;;load of the 9 actuators
-        [set list-actuators replace-item (i - 8) list-actuators (string-to-binary-to-integer substring genotype (3 + (i * 2))  (5 + (i * 2)))]
+        [set list-actuators replace-item (i - 8) list-actuators (string-to-binary-to-integer substring number_genotype (3 + (i * 2))  (5 + (i * 2)))]
       set i (i + 1)
    ]
   ;;user-message list-sensors
@@ -245,7 +263,7 @@ to load-controller
   [
  ifelse (item i list-sensors > -1)[
 
-  set Phenotype remplace-string Phenotype word "S" (word (i + 1)) (item (item i list-sensors) list-names-sensors)
+  set phenotype_code remplace-string phenotype_code word "S" (word (i + 1)) (item (item i list-sensors) list-names-sensors)
     ][]
   set i (i + 1)
 
@@ -257,13 +275,13 @@ to load-controller
   ifelse (item i list-actuators > -1)[
 
 
-  set Phenotype remplace-string Phenotype word "A" (word (i + 1)) (item (item i list-actuators) list-names-actuators)
+  set phenotype_code remplace-string phenotype_code word "A" (word (i + 1)) (item (item i list-actuators) list-names-actuators)
     ][]
 
   set i (i + 1)
   ]
 
-
+report phenotype_code
 end
 
 to-report remplace-string [ str old new ]
@@ -300,9 +318,21 @@ end
 
 ;;;;; RUN ;;;;;
 to run-controller
-  ask robots
-  [run Phenotype ]
-  wait 0.025
+  let Multi_Genotype_List load-Multi_Genotype_List
+  let number_genotype ""
+
+  let number_robot 0
+  while [number-robots > number_robot][
+   set number_genotype (item  (length Multi_Genotype_List - 1 - number_robot) Multi_Genotype_List)
+
+   let penotype_code load-controller number_genotype
+
+   ask robot number_robot
+   [run penotype_code ]
+   wait 0.005
+    set number_robot number_robot + 1
+  ]
+
 end
 
 to Crossover
@@ -316,7 +346,7 @@ to Remplace
     set Multi_Genotype_List replace-item (10 - Pather_1) Multi_Genotype_List Crossover_1_Genotype
     set Multi_Genotype_List replace-item (10 - Pather_2) Multi_Genotype_List Crossover_2_Genotype
     set Multi_Genotype append-List Multi_Genotype_List
-    load-controller
+
   ][
   ]
 
@@ -338,7 +368,7 @@ to mutate
     set Multi_Genotype_List replace-item (10 - Number) Multi_Genotype_List genotype
     set Multi_Genotype append-List Multi_Genotype_List
 
-    load-controller
+    set Phenotype load-controller load-controller (item (10 - Number) Multi_Genotype_List)
 end
 to-report load-Multi_Genotype_List
  let Multi_Genotype_List ["" "" "" "" "" "" "" "" "" ""]
@@ -411,7 +441,7 @@ end
 
 ;;;; ACTUATORS ;;;;
 to move-ahead
-  ifelse not wall-ahead? [
+  ifelse not wall-ahead? and not target? [
   forward 1
   ]
   [
@@ -419,7 +449,7 @@ to move-ahead
 end
 
 to move-back
-  ifelse not wall-back? [
+  ifelse not wall-back? and not target?[
   back 1
   ]
   [
@@ -437,12 +467,60 @@ end
 to rand-turn
   set heading item random 4 [0 90 180 270]
 end
+
+
+;; If the mouse is down, use the Current Tool on the patch the mouse is over
+to draw
+  if mouse-down?
+  [
+    ;; Eraser Tool - Clears Walls/Gates, Removes Pellets
+    if  tool = "Eraser"
+    [ erase ]
+    ;; Wall Tool - Draws a Wall - Neither Pac-Man nor Ghosts can move through walls
+    if tool = "Draw Wall"
+    [ draw-boundary black ]
+    ;; Gate Tool - Draws a Gate - Only Ghosts can move through Gates
+    ;;             Gates also heal ghosts which have been eaten.
+
+    ;; Power Pellet Toggle Tool - Changes a Pellet into a Power Pellet and vice versa.
+;    if tool = "Target"
+ ;   [ toggle-power-pellet ]
+      ]
+end
+
+;; Clears Walls/Gates, Removes Pellets from the patch the mouse is over
+to erase
+  ask patch (round mouse-xcor) (round mouse-ycor)
+  [
+    set pcolor black
+    set pellet-grid? false
+    die
+    ask pellets-here
+   [ die ]
+  ]
+end
+to draw-boundary [ boundary-color ]
+  ask patch (round mouse-xcor) (round mouse-ycor)
+  [
+    ifelse not any? turtles-here
+    [ set pcolor boundary-color ]
+    [
+      ifelse boundary-color = gray
+      [
+        ifelse any? robots-here or any? pellets-here
+        [ user-message "You cannot place a gate on top of pacman or a pellet." ]
+        [ set pcolor boundary-color ]
+      ]
+      [ user-message "You cannot place a wall on top of pacman, a ghost, or a pellet." ]
+    ]
+  ]
+end
 @#$#@#$#@
 GRAPHICS-WINDOW
 7
 49
-542
-378
+550
+387
 -1
 -1
 13.72
@@ -463,12 +541,12 @@ GRAPHICS-WINDOW
 0
 1
 ticks
-30
+30.0
 
 BUTTON
-7
+8
 10
-155
+156
 43
 Setup Evnironment
 setup
@@ -508,7 +586,7 @@ number-robots
 number-robots
 1
 10
-10
+10.0
 1
 1
 NIL
@@ -521,7 +599,7 @@ TEXTBOX
 498
 Genotype selected for mutation
 11
-0
+0.0
 1
 
 INPUTBOX
@@ -530,7 +608,7 @@ INPUTBOX
 896
 347
 multi_genotype
-1000010101010101100011011010001111001\n1011100001010000001010010111010111011\n1000011100110011010101101001010011011\n1110101100000101110001000111100100101\n0001110000010111110110010001110110111\n0111101010001001011101000110111110100\n1010010101001010001001110010000111001\n0001011011110010010101000001011101101\n1101010010110001101000000100110011101\n1011000110111110100101000001111000001
+0100011111111011111001100110110101100\n0111111001011011000111110010001010111\n0111011001000111010011100101000011110\n0100101001100011111101100010101110100\n1001101110010101000111111100011100000\n0111001111010100001001101110001001000\n1000100100110001111000000010110111011\n0101100110011001000010111000001100100\n0100101111001001100000101011011110000\n1110001111010110010001001000101100101
 1
 1
 String
@@ -541,21 +619,21 @@ INPUTBOX
 1807
 474
 phenotype
-ifelse not wall-left? [turn-left][ifelse not wall-back? [turn-left][ifelse not wall-right? [move-back][ifelse not wall-ahead? [move-back][ifelse not wall-right? [turn-right][ifelse not wall-right? [turn-right][move-back]]]]]]
+ifelse not wall-left? [move-back][ifelse not wall-ahead? [turn-left][ifelse not wall-right? [move-ahead][ifelse not wall-left? [turn-left][ifelse not wall-back? [turn-left][ifelse not wall-right? [turn-left][move-back]]]]]]
 1
 0
 String
 
 SLIDER
-20
-570
-965
-603
+24
+567
+957
+600
 bit_selector
 bit_selector
 1
 37
-1
+1.0
 1
 1
 NIL
@@ -587,14 +665,14 @@ OUTPUT
 
 SLIDER
 555
-180
+178
 588
 326
 Number
-number
+Number
 1
 10
-1
+1.0
 1
 1
 NIL
@@ -606,7 +684,7 @@ CHOOSER
 124
 708
 Pather_1
-pather_1
+Pather_1
 1 2 3 4 5
 0
 
@@ -616,7 +694,7 @@ CHOOSER
 124
 757
 Pather_2
-pather_2
+Pather_2
 6 7 8 9 10
 0
 
@@ -648,9 +726,9 @@ CHOOSER
 572
 707
 Bit_Position
-bit_position
+Bit_Position
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36
-25
+16
 
 BUTTON
 434
@@ -769,6 +847,75 @@ ifelse not S1 [A1][A2]\nifelse not S1 [A1][ifelse not S2 [A2][A3]]\nifelse not S
 1
 0
 String
+
+BUTTON
+333
+10
+420
+43
+Draw Wall
+set tool \"Draw Wall\"
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+424
+10
+479
+43
+Eraser
+set tool \"Eraser\"
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+481
+10
+550
+43
+Target
+set tool \"Target\"
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+558
+10
+621
+43
+Draw
+draw
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
 @#$#@#$#@
 ## WHAT IS IT?
 
@@ -1111,22 +1258,22 @@ false
 Polygon -7500403 true true 270 75 225 30 30 225 75 270
 Polygon -7500403 true true 30 75 75 30 270 225 225 270
 @#$#@#$#@
-NetLogo 6.1.0
+NetLogo 6.1.1
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
 default
-0
--0.2 0 0 1
-0 1 1 0
-0.2 0 0 1
+0.0
+-0.2 0 0.0 1.0
+0.0 1 1.0 0.0
+0.2 0 0.0 1.0
 link direction
 true
 0
 Line -7500403 true 150 150 90 180
 Line -7500403 true 150 150 210 180
 @#$#@#$#@
-
+0
 @#$#@#$#@

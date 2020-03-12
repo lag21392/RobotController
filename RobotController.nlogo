@@ -547,9 +547,9 @@ ifelse not wall-ahead? [move-ahead][ifelse not wall-left? [turn-left][ifelse not
 String
 
 SLIDER
-16
+13
 567
-979
+974
 600
 bit_selector
 bit_selector

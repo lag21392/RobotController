@@ -441,8 +441,8 @@ end
 GRAPHICS-WINDOW
 7
 49
-550
-387
+542
+378
 -1
 -1
 13.72
@@ -463,7 +463,7 @@ GRAPHICS-WINDOW
 0
 1
 ticks
-30.0
+30
 
 BUTTON
 7
@@ -508,7 +508,7 @@ number-robots
 number-robots
 1
 10
-10.0
+10
 1
 1
 NIL
@@ -521,7 +521,7 @@ TEXTBOX
 498
 Genotype selected for mutation
 11
-0.0
+0
 1
 
 INPUTBOX
@@ -530,7 +530,7 @@ INPUTBOX
 896
 347
 multi_genotype
-0000100111011111010111110101000010001\n0100110101011001010101000110011100000\n0010000011111111000100001110010000000\n1101101101011011111110110000110000000\n1101000000000101001011001110000100111\n0001101111001110111110010011011010101\n1100101000110110100001100000110110100\n0100101000100000110100100101100011111\n1111011010100001001100000110101101111\n0110110011101100000011001100001010110
+1000010101010101100011011010001111001\n1011100001010000001010010111010111011\n1000011100110011010101101001010011011\n1110101100000101110001000111100100101\n0001110000010111110110010001110110111\n0111101010001001011101000110111110100\n1010010101001010001001110010000111001\n0001011011110010010101000001011101101\n1101010010110001101000000100110011101\n1011000110111110100101000001111000001
 1
 1
 String
@@ -541,21 +541,21 @@ INPUTBOX
 1807
 474
 phenotype
-ifelse not wall-ahead? [move-ahead][ifelse not wall-left? [turn-left][ifelse not wall-ahead? [move-ahead][ifelse not wall-right? [turn-left][move-back]]]]
+ifelse not wall-left? [turn-left][ifelse not wall-back? [turn-left][ifelse not wall-right? [move-back][ifelse not wall-ahead? [move-back][ifelse not wall-right? [turn-right][ifelse not wall-right? [turn-right][move-back]]]]]]
 1
 0
 String
 
 SLIDER
-24
-567
-967
-600
+20
+570
+965
+603
 bit_selector
 bit_selector
 1
 37
-1.0
+1
 1
 1
 NIL
@@ -587,14 +587,14 @@ OUTPUT
 
 SLIDER
 555
-178
+180
 588
 326
 Number
-Number
+number
 1
 10
-1.0
+1
 1
 1
 NIL
@@ -606,7 +606,7 @@ CHOOSER
 124
 708
 Pather_1
-Pather_1
+pather_1
 1 2 3 4 5
 0
 
@@ -616,7 +616,7 @@ CHOOSER
 124
 757
 Pather_2
-Pather_2
+pather_2
 6 7 8 9 10
 0
 
@@ -626,7 +626,7 @@ INPUTBOX
 429
 723
 pather_1_genotype
-0110110011101100000011001110000100111
+NIL
 1
 0
 String
@@ -637,7 +637,7 @@ INPUTBOX
 429
 793
 pather_2_genotype
-1101000000000101001011001100001010110
+NIL
 1
 0
 String
@@ -648,7 +648,7 @@ CHOOSER
 572
 707
 Bit_Position
-Bit_Position
+bit_position
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36
 25
 
@@ -675,7 +675,7 @@ INPUTBOX
 878
 722
 crossover_1_genotype
-0110110011101100000011001100001010110
+NIL
 1
 0
 String
@@ -686,7 +686,7 @@ INPUTBOX
 877
 792
 crossover_2_genotype
-1101000000000101001011001110000100111
+NIL
 1
 0
 String
@@ -769,7 +769,6 @@ ifelse not S1 [A1][A2]\nifelse not S1 [A1][ifelse not S2 [A2][A3]]\nifelse not S
 1
 0
 String
-
 @#$#@#$#@
 ## WHAT IS IT?
 
@@ -1112,22 +1111,22 @@ false
 Polygon -7500403 true true 270 75 225 30 30 225 75 270
 Polygon -7500403 true true 30 75 75 30 270 225 225 270
 @#$#@#$#@
-NetLogo 6.1.1
+NetLogo 6.1.0
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
 default
-0.0
--0.2 0 0.0 1.0
-0.0 1 1.0 0.0
-0.2 0 0.0 1.0
+0
+-0.2 0 0 1
+0 1 1 0
+0.2 0 0 1
 link direction
 true
 0
 Line -7500403 true 150 150 90 180
 Line -7500403 true 150 150 210 180
 @#$#@#$#@
-0
+
 @#$#@#$#@

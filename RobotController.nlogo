@@ -326,13 +326,13 @@ to Run-Controllers
   let Multi_Genotype_List load-Multi_Genotype_List
   let number_genotype ""
 
-  let number_robot 1
+  let number_robot 0
   while [number-robots > number_robot][
-   set number_genotype (item  (length Multi_Genotype_List  - number_robot ) Multi_Genotype_List)
+   set number_genotype (item  (length Multi_Genotype_List  - number_robot - 1) Multi_Genotype_List)
 
    let penotype_code load-controller number_genotype
 
-   ask robot (length Multi_Genotype_List  - number_robot)
+   ask robot number_robot
    [run penotype_code ]
    wait 0.005
     set number_robot number_robot + 1
@@ -346,13 +346,12 @@ to Run-Controller
   let Multi_Genotype_List load-Multi_Genotype_List
   let number_genotype ""
 
-  let number_robot Number_Genotype_Loader
+  let number_robot Number_Genotype_Loader - 1
 
-   set number_genotype (item  (length Multi_Genotype_List  - number_robot ) Multi_Genotype_List)
+   set number_genotype (item  ((length Multi_Genotype_List  - number_robot) - 1) Multi_Genotype_List)
 
    let penotype_code load-controller number_genotype
-   set aaa (word ((length Multi_Genotype_List  - number_robot) + 1 ))
-   ask robot (length Multi_Genotype_List  - number_robot)
+   ask robot number_robot
    [run penotype_code ]
    wait 0.005
 
@@ -661,7 +660,7 @@ INPUTBOX
 896
 336
 multi_genotype
-1101001010011011011111011110011100110\n1010110010110000010110111011000011100\n0000001111001010001000000001110010101\n0100011011101110000100110101110001001\n1110000101110001101110111000100100101\n0001011100000010001101011111110011100\n1010101101011011111011111011010011111\n1010111010011001111010000001111010110\n1001001100100001001001110010101101100\n1100111010111000011010111100101011000
+0010111000000100011111000011111000111\n1011001010111011010011001011010011011\n1110111111101011101110010010101011000\n0011100111000100000010010111000000100\n0101001010001111101010101100011101001\n1101000111001010010111000110001111011\n1110000010010010011000100100101000101\n1101010010101101100100000001011101011\n1101111000110011001001000011011110110\n0001100001011011001001101101011101101
 1
 1
 String
@@ -672,7 +671,7 @@ INPUTBOX
 1300
 476
 phenotype
-ifelse not wall-left? [turn-right][ifelse not wall-ahead? [turn-left][ifelse not wall-ahead? [turn-right][ifelse not wall-back? [turn-right][ifelse not wall-right? [move-back][ifelse not wall-ahead? [turn-right][ifelse not wall-left? [turn-left][move-ahead]]]]]]]
+ifelse not wall-ahead? [turn-right][ifelse not wall-right? [turn-left][move-back]]
 1
 0
 String
@@ -757,7 +756,7 @@ INPUTBOX
 429
 723
 parent-1-genotype
-NIL
+0001100001011011001001000011011110110
 1
 0
 String
@@ -768,7 +767,7 @@ INPUTBOX
 429
 793
 parent-2-genotype
-NIL
+1101111000110011001001101101011101101
 1
 0
 String
@@ -806,7 +805,7 @@ INPUTBOX
 895
 720
 crossover_1_genotype
-NIL
+0001100001011011001001101101011101101
 1
 0
 String
@@ -817,7 +816,7 @@ INPUTBOX
 895
 790
 crossover_2_genotype
-NIL
+1101111000110011001001000011011110110
 1
 0
 String
@@ -1036,7 +1035,7 @@ INPUTBOX
 1231
 655
 aaa
-1
+0
 1
 0
 String

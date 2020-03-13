@@ -1029,17 +1029,6 @@ NIL
 NIL
 1
 
-INPUTBOX
-1008
-595
-1231
-655
-aaa
-0
-1
-0
-String
-
 @#$#@#$#@
 ## WHAT IS IT?
 

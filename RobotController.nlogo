@@ -47,6 +47,7 @@ globals
   controller
   genotype
   tool
+  Number_Genotype_Loader
 ]
 
 ;;;; SETUP ;;;;;;
@@ -77,17 +78,17 @@ to initiate
   set Pather_2_Genotype ""
   set Crossover_1_Genotype ""
   set Crossover_2_Genotype ""
-  set Pather_1 1
-  set Pather_2 6
+  set parent-1 1
+  set parent-2 6
   set Number 1
   set number-robots 10
-  set bit_selector 1
+  set bit-position 1
 end
 to Load_Genotype
-
+  set Number_Genotype_Loader Number
   let Multi_Genotype_List load-Multi_Genotype_List
   let number_genotype ""
-  set number_genotype (item (10 - Number) Multi_Genotype_List)
+  set number_genotype (item (10 - Number_Genotype_Loader) Multi_Genotype_List)
   set genotype number_genotype
   output-print genotype
   set Phenotype load-controller number_genotype
@@ -170,6 +171,7 @@ to setup-robots
   let colors [ 5 15 25 35 45 55 65 75 85 95 ]
   create-robots number-robots
   [
+
     set size 1.7              ;; robot size
     set color item 0 colors           ;; robot color
     SET colors remove-item 0 colors
@@ -263,7 +265,7 @@ to-report load-controller [number_genotype]
   [
  ifelse (item i list-sensors > -1)[
 
-  set phenotype_code remplace-string phenotype_code word "S" (word (i + 1)) (item (item i list-sensors) list-names-sensors)
+  set phenotype_code replace-string phenotype_code word "S" (word (i + 1)) (item (item i list-sensors) list-names-sensors)
     ][]
   set i (i + 1)
 
@@ -275,7 +277,7 @@ to-report load-controller [number_genotype]
   ifelse (item i list-actuators > -1)[
 
 
-  set phenotype_code remplace-string phenotype_code word "A" (word (i + 1)) (item (item i list-actuators) list-names-actuators)
+  set phenotype_code replace-string phenotype_code word "A" (word (i + 1)) (item (item i list-actuators) list-names-actuators)
     ][]
 
   set i (i + 1)
@@ -284,7 +286,7 @@ to-report load-controller [number_genotype]
 report phenotype_code
 end
 
-to-report remplace-string [ str old new ]
+to-report replace-string [ str old new ]
   ifelse (member? old str and (length new) > 0)
    [
   let position_old position old str
@@ -340,11 +342,10 @@ to Crossover
   set Crossover_1_Genotype word (substring Pather_1_Genotype 0 (Bit_Position - 1)) (substring Pather_2_Genotype (Bit_Position - 1) 37)
   set Crossover_2_Genotype word (substring Pather_2_Genotype 0 (Bit_Position - 1)) (substring Pather_1_Genotype (Bit_Position - 1) 37)
 end
-to Remplace
-    ifelse not (Crossover_1_Genotype = "" and Crossover_1_Genotype = "")[
+to replace [parent Crossover_Genotype]
+    ifelse not (Crossover_Genotype = "")[
     let Multi_Genotype_List load-Multi_Genotype_List
-    set Multi_Genotype_List replace-item (10 - Pather_1) Multi_Genotype_List Crossover_1_Genotype
-    set Multi_Genotype_List replace-item (10 - Pather_2) Multi_Genotype_List Crossover_2_Genotype
+    set Multi_Genotype_List replace-item (10 - parent) Multi_Genotype_List Crossover_Genotype
     set Multi_Genotype append-List Multi_Genotype_List
 
   ][
@@ -354,21 +355,23 @@ end
 to Load
     ;;load Crossover
   let Multi_Genotype_List load-Multi_Genotype_List
-  set Pather_1_Genotype item (10 - Pather_1) Multi_Genotype_List
-  set Pather_2_Genotype item (10 - Pather_2) Multi_Genotype_List
+  set Pather_1_Genotype item (10 - parent-1) Multi_Genotype_List
+  set Pather_2_Genotype item (10 - parent-2) Multi_Genotype_List
 end
 ;;MUTATE
 to mutate
 
-  ifelse substring genotype (bit_selector - 1) bit_selector = "1"
-    [set genotype (replace-item (bit_selector - 1) genotype "0")]
-    [set genotype (replace-item (bit_selector - 1) genotype "1")]
+  ifelse substring genotype (bit-position - 1) bit-position = "1"
+    [set genotype (replace-item (bit-position - 1) genotype "0")]
+    [set genotype (replace-item (bit-position - 1) genotype "1")]
 
    let Multi_Genotype_List load-Multi_Genotype_List
-    set Multi_Genotype_List replace-item (10 - Number) Multi_Genotype_List genotype
+    set Multi_Genotype_List replace-item (10 - Number_Genotype_Loader) Multi_Genotype_List genotype
     set Multi_Genotype append-List Multi_Genotype_List
 
-    set Phenotype load-controller load-controller (item (10 - Number) Multi_Genotype_List)
+    set Phenotype load-controller load-controller (item (10 - Number_Genotype_Loader) Multi_Genotype_List)
+  output-print (item (10 - Number_Genotype_Loader) Multi_Genotype_List)
+
 end
 to-report load-Multi_Genotype_List
  let Multi_Genotype_List ["" "" "" "" "" "" "" "" "" ""]
@@ -473,45 +476,49 @@ end
 to draw
   if mouse-down?
   [
-    ;; Eraser Tool - Clears Walls/Gates, Removes Pellets
+
     if  tool = "Eraser"
     [ erase ]
-    ;; Wall Tool - Draws a Wall - Neither Pac-Man nor Ghosts can move through walls
-    if tool = "Draw Wall"
-    [ draw-boundary black ]
-    ;; Gate Tool - Draws a Gate - Only Ghosts can move through Gates
-    ;;             Gates also heal ghosts which have been eaten.
 
-    ;; Power Pellet Toggle Tool - Changes a Pellet into a Power Pellet and vice versa.
-;    if tool = "Target"
- ;   [ toggle-power-pellet ]
-      ]
+    if tool = "Draw Wall"
+    [ Draw-Wall  ]
+
+    if tool = "Target"
+    [ Draw-Target    ]
+  ]
 end
 
 ;; Clears Walls/Gates, Removes Pellets from the patch the mouse is over
 to erase
   ask patch (round mouse-xcor) (round mouse-ycor)
   [
-    set pcolor black
+    set pcolor white
     set pellet-grid? false
-    die
-    ask pellets-here
-   [ die ]
+    set wall? false
+    set target? false
   ]
 end
-to draw-boundary [ boundary-color ]
+to Draw-Wall
+
   ask patch (round mouse-xcor) (round mouse-ycor)
   [
-    ifelse not any? turtles-here
-    [ set pcolor boundary-color ]
+    ifelse not wall? and not target? and not any? robots-here           ;; true if the patch is the target of the maze
+
+    [ int-wall ]
     [
-      ifelse boundary-color = gray
-      [
-        ifelse any? robots-here or any? pellets-here
-        [ user-message "You cannot place a gate on top of pacman or a pellet." ]
-        [ set pcolor boundary-color ]
-      ]
-      [ user-message "You cannot place a wall on top of pacman, a ghost, or a pellet." ]
+
+    ]
+  ]
+end
+to Draw-Target
+
+  ask patch (round mouse-xcor) (round mouse-ycor)
+  [
+    ifelse not wall? and not target? and not any? robots-here           ;; true if the patch is the target of the maze
+
+    [ add-target ]
+    [
+
     ]
   ]
 end
@@ -608,7 +615,7 @@ INPUTBOX
 896
 347
 multi_genotype
-0100011111111011111001100110110101100\n0111111001011011000111110010001010111\n0111011001000111010011100101000011110\n0100101001100011111101100010101110100\n1001101110010101000111111100011100000\n0111001111010100001001101110001001000\n1000100100110001111000000010110111011\n0101100110011001000010111000001100100\n0100101111001001100000101011011110000\n1110001111010110010001001000101100101
+1111100100100001011010010010010001000\n1010100011111001100100110100110001101\n1100111100010001011011101111101100011\n0000111100011010110011010000101000101\n1001010100101011111101010001000010010\n1000011001001101101101001111101001001\n1001010100000111010011010010011001001\n0100001001010010100001010101111011010\n0001100111010010111010110010011100010\n0111101110011010101100101110111011010
 1
 1
 String
@@ -619,7 +626,7 @@ INPUTBOX
 1807
 474
 phenotype
-ifelse not wall-left? [move-back][ifelse not wall-ahead? [turn-left][ifelse not wall-right? [move-ahead][ifelse not wall-left? [turn-left][ifelse not wall-back? [turn-left][ifelse not wall-right? [turn-left][move-back]]]]]]
+ifelse not wall-back? [move-back][move-back]
 1
 0
 String
@@ -629,8 +636,8 @@ SLIDER
 567
 957
 600
-bit_selector
-bit_selector
+bit-position
+bit-position
 1
 37
 1.0
@@ -683,8 +690,8 @@ CHOOSER
 663
 124
 708
-Pather_1
-Pather_1
+parent-1
+parent-1
 1 2 3 4 5
 0
 
@@ -693,8 +700,8 @@ CHOOSER
 712
 124
 757
-Pather_2
-Pather_2
+parent-2
+parent-2
 6 7 8 9 10
 0
 
@@ -773,9 +780,9 @@ BUTTON
 885
 662
 970
-790
-NIL
-Remplace
+722
+replace-1
+replace parent-1 Crossover_1_Genotype
 NIL
 1
 T
@@ -838,10 +845,10 @@ NIL
 1
 
 INPUTBOX
-904
-48
-1860
-385
+14
+800
+1798
+964
 templates
 ifelse not S1 [A1][A2]\nifelse not S1 [A1][ifelse not S2 [A2][A3]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][A4]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][A5]]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][ifelse not S5 [A5][A6]]]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][ifelse not S5 [A5][ifelse not S6 [A6][A7]]]]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][ifelse not S5 [A5][ifelse not S6 [A6][ifelse not S7 [A7][A8]]]]]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][ifelse not S5 [A5][ifelse not S6 [A6][ifelse not S7 [A7][ifelse not S8 [A8][A9]]]]]]]]\n
 1
@@ -866,9 +873,9 @@ NIL
 1
 
 BUTTON
-424
+495
 10
-479
+550
 43
 Eraser
 set tool \"Eraser\"
@@ -883,9 +890,9 @@ NIL
 1
 
 BUTTON
-481
+423
 10
-550
+492
 43
 Target
 set tool \"Target\"
@@ -906,6 +913,23 @@ BUTTON
 43
 Draw
 draw
+T
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+886
+732
+970
+793
+replace-2
+replace parent-2 Crossover_2_Genotype
 NIL
 1
 T

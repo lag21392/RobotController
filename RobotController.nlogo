@@ -94,7 +94,7 @@ to Load_Genotype
   set genotype number_genotype
   output-print genotype
   set Phenotype load-controller number_genotype
-  set Score item  Number_Genotype_Loader  Score-List
+  set Score item  (Number_Genotype_Loader - 1)  Score-List
 end
 
 
@@ -326,13 +326,13 @@ to Run-Controllers
   let Multi_Genotype_List load-Multi_Genotype_List
   let number_genotype ""
 
-  let number_robot 0
+  let number_robot 1
   while [number-robots > number_robot][
-   set number_genotype (item  (length Multi_Genotype_List - 1 - number_robot) Multi_Genotype_List)
+   set number_genotype (item  (length Multi_Genotype_List  - number_robot ) Multi_Genotype_List)
 
    let penotype_code load-controller number_genotype
 
-   ask robot number_robot
+   ask robot (length Multi_Genotype_List  - number_robot)
    [run penotype_code ]
    wait 0.005
     set number_robot number_robot + 1
@@ -342,16 +342,17 @@ end
 
 ;;;;; RUN ;;;;;
 to Run-Controller
+
   let Multi_Genotype_List load-Multi_Genotype_List
   let number_genotype ""
 
   let number_robot Number_Genotype_Loader
 
-   set number_genotype (item  (length Multi_Genotype_List - 1 - number_robot) Multi_Genotype_List)
+   set number_genotype (item  (length Multi_Genotype_List  - number_robot ) Multi_Genotype_List)
 
    let penotype_code load-controller number_genotype
-
-   ask robot number_robot
+   set aaa (word ((length Multi_Genotype_List  - number_robot) + 1 ))
+   ask robot (length Multi_Genotype_List  - number_robot)
    [run penotype_code ]
    wait 0.005
 
@@ -660,7 +661,7 @@ INPUTBOX
 896
 336
 multi_genotype
-1000011010100110100001100100100101110\n0011011011101001011011111110010001100\n0110101110100000011011111111100100001\n1100001010100100001111011101101100100\n0000101110100001010111000110011000100\n1011110111010100101000110001110111001\n0010011010000111110110000100011110010\n1101000000101101100101011001000011111\n0101100010110100000000001110000101101\n0010100011100001011000100010110111001
+1101001010011011011111011110011100110\n1010110010110000010110111011000011100\n0000001111001010001000000001110010101\n0100011011101110000100110101110001001\n1110000101110001101110111000100100101\n0001011100000010001101011111110011100\n1010101101011011111011111011010011111\n1010111010011001111010000001111010110\n1001001100100001001001110010101101100\n1100111010111000011010111100101011000
 1
 1
 String
@@ -671,7 +672,7 @@ INPUTBOX
 1300
 476
 phenotype
-ifelse not wall-left? [turn-left][ifelse not wall-back? [turn-left][ifelse not wall-back? [turn-right][ifelse not wall-ahead? [move-back][ifelse not wall-ahead? [turn-left][ifelse not wall-left? [move-back][ifelse not wall-right? [move-ahead][turn-right]]]]]]]
+ifelse not wall-left? [turn-right][ifelse not wall-ahead? [turn-left][ifelse not wall-ahead? [turn-right][ifelse not wall-back? [turn-right][ifelse not wall-right? [move-back][ifelse not wall-ahead? [turn-right][ifelse not wall-left? [turn-left][move-ahead]]]]]]]
 1
 0
 String
@@ -685,7 +686,7 @@ bit-position
 bit-position
 1
 37
-1.0
+20.0
 1
 1
 NIL
@@ -724,7 +725,7 @@ Number
 Number
 1
 10
-1.0
+10.0
 1
 1
 NIL
@@ -1028,6 +1029,17 @@ NIL
 NIL
 NIL
 1
+
+INPUTBOX
+1008
+595
+1231
+655
+aaa
+1
+1
+0
+String
 
 @#$#@#$#@
 ## WHAT IS IT?

@@ -225,7 +225,7 @@ to-report split [ text c ]
 end
 to-report load-controller [number_genotype]
   let phenotype_code ""
-  set controller (split Templates "\n")
+  set controller (split grammars "\n")
 
 ;  file-open ("templates.txt")
 ;  while [not file-at-end?]
@@ -894,7 +894,7 @@ INPUTBOX
 800
 1309
 970
-templates
+grammars
 ifelse not S1 [A1][A2]\nifelse not S1 [A1][ifelse not S2 [A2][A3]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][A4]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][A5]]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][ifelse not S5 [A5][A6]]]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][ifelse not S5 [A5][ifelse not S6 [A6][A7]]]]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][ifelse not S5 [A5][ifelse not S6 [A6][ifelse not S7 [A7][A8]]]]]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][ifelse not S5 [A5][ifelse not S6 [A6][ifelse not S7 [A7][ifelse not S8 [A8][A9]]]]]]]]\n
 1
 0

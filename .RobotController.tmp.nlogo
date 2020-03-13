@@ -80,7 +80,7 @@ to initiate
   set Crossover_1_Genotype ""
   set Crossover_2_Genotype ""
   set parent-1 1
-  set parent-2 6
+  set parent-2 2
   set Number 1
   set number-robots 10
   set bit-position 1
@@ -737,7 +737,7 @@ CHOOSER
 708
 parent-1
 parent-1
-1 2 3 4 5
+1 3 5 7 9
 0
 
 CHOOSER
@@ -748,7 +748,7 @@ CHOOSER
 parent-2
 parent-2
 2 4 6 8 10
-2
+0
 
 INPUTBOX
 128
@@ -894,7 +894,7 @@ INPUTBOX
 800
 1309
 970
-templates
+grammars
 ifelse not S1 [A1][A2]\nifelse not S1 [A1][ifelse not S2 [A2][A3]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][A4]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][A5]]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][ifelse not S5 [A5][A6]]]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][ifelse not S5 [A5][ifelse not S6 [A6][A7]]]]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][ifelse not S5 [A5][ifelse not S6 [A6][ifelse not S7 [A7][A8]]]]]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][ifelse not S5 [A5][ifelse not S6 [A6][ifelse not S7 [A7][ifelse not S8 [A8][A9]]]]]]]]\n
 1
 0

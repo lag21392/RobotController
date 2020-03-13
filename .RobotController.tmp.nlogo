@@ -80,7 +80,7 @@ to initiate
   set Crossover_1_Genotype ""
   set Crossover_2_Genotype ""
   set parent-1 1
-  set parent-2 2
+  set parent-2 6
   set Number 1
   set number-robots 10
   set bit-position 1
@@ -737,7 +737,7 @@ CHOOSER
 708
 parent-1
 parent-1
-1 3 5 7 9
+1 2 3 4 5
 0
 
 CHOOSER
@@ -748,7 +748,7 @@ CHOOSER
 parent-2
 parent-2
 2 4 6 8 10
-0
+2
 
 INPUTBOX
 128

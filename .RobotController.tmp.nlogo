@@ -320,7 +320,7 @@ to-report string-to-binary-to-integer [text]
   ]
   report numDecimal
 end
-
+l
 ;;;;; RUN ;;;;;
 to Run-Controllers
   let Multi_Genotype_List load-Multi_Genotype_List
@@ -331,7 +331,7 @@ to Run-Controllers
    set number_genotype (item  (length Multi_Genotype_List  - number_robot - 1) Multi_Genotype_List)
 
    let penotype_code load-controller number_genotype
-   show (length Multi_Genotype_List  - number_robot)
+
    ask robot number_robot
    [run penotype_code ]
    wait 0.005
@@ -1028,17 +1028,6 @@ NIL
 NIL
 NIL
 1
-
-INPUTBOX
-1008
-595
-1231
-655
-aaa
-0
-1
-0
-String
 
 @#$#@#$#@
 ## WHAT IS IT?

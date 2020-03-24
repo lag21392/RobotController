@@ -49,6 +49,7 @@ globals
   tool
   Number_Genotype_Loader
   Score-list
+  number-robots
 ]
 
 ;;;; SETUP ;;;;;;
@@ -56,16 +57,19 @@ to setup
   clear-all              ;; Combines the effects of all clear commands into one
   initiate
   load-Multi_Genotype_Random
-
+  set number-robots length split Genotypes-to-run "\n"
   setup-patches
   setup-maze
   setup-robots
 
   set tool "Eraser"
 
+  update
 
 end
-
+to update
+  load-multi-phenotype
+end
 to setup-patches
   ask patches
   [
@@ -82,7 +86,7 @@ to initiate
   set parent-1 1
   set parent-2 2
   set Number 1
-  set number-robots 10
+  set number-robots 1
   set bit-position 1
   set Score-list [ 1 1 1 1 1 1 1 1 1 1 ]
 end
@@ -93,7 +97,7 @@ to Load_Genotype
   set number_genotype (item (10 - Number_Genotype_Loader) Multi_Genotype_List)
   set genotype number_genotype
   output-print genotype
-  set Phenotype load-controller number_genotype
+
   set Score item  (Number_Genotype_Loader - 1)  Score-List
 end
 
@@ -200,13 +204,23 @@ to place-robots
   ]
 end
 
+to Load_Number_Robots
+set number-robots length split Genotypes-to-run "\n"
+setup-robots
+
+end
+
 
 to-report split [ text c ]
   let position_ini 0
   let position_end 0
   let vector_strings []
 
+  ifelse (length text > 0 and not member? c text )
 
+  [ set vector_strings insert-item 0 vector_strings text
+    report vector_strings]
+  [
   while [position_end < length text and (substring text position_end (position_end + (length c) )) != c and member? c text ][
 
     while [(substring text position_end (position_end + (length c) )) != c and position_end < length text ]
@@ -222,6 +236,7 @@ to-report split [ text c ]
 
       ]
   report vector_strings
+  ]
 end
 to-report load-controller [number_genotype]
   let phenotype_code ""
@@ -307,7 +322,45 @@ to-report replace-string [ str old new ]
 
   report str
 end
+to load-multi-phenotype
 
+  let Number_Genotype_Loader_ 0
+  let Multi_Genotype_List load-Multi_Genotype_List
+  let number_genotype ""
+  set multi_phenotype ""
+  set number_genotype (item ( Number_Genotype_Loader_) Multi_Genotype_List)
+
+  set multi_phenotype  (load-controller number_genotype)
+  set Number_Genotype_Loader_ Number_Genotype_Loader_ + 1
+  while [Number_Genotype_Loader_ < 10]
+    [set number_genotype (item (Number_Genotype_Loader_) Multi_Genotype_List)
+
+
+    set multi_phenotype (word multi_phenotype "\n" (load-controller number_genotype) )
+
+    set Number_Genotype_Loader_ Number_Genotype_Loader_ + 1]
+end
+
+to Run-Controllers
+  ;;cargar
+  let list_phenotype split multi_phenotype "\n"
+  let list_nums_phenotypes split Genotypes-to-run "\n"
+  let num_robot 0
+  let i 0
+  let list_num_phenotype split (item i list_nums_phenotypes) ","
+
+
+    while [length list_nums_phenotypes > num_robot][
+
+      set list_num_phenotype split (item num_robot list_nums_phenotypes) ","
+
+      foreach list_num_phenotype  [ x ->    ask robot num_robot  [run (item ((read-from-string x) - 1) list_phenotype) ]  wait ms / 1000]
+      set num_robot num_robot + 1
+    ]
+
+
+
+end
 to-report string-to-binary-to-integer [text]
   let i 0
   let numDecimal 0
@@ -322,7 +375,7 @@ to-report string-to-binary-to-integer [text]
 end
 
 ;;;;; RUN ;;;;;
-to Run-Controllers
+to Run-Controllers_anterior
   let Multi_Genotype_List load-Multi_Genotype_List
   let number_genotype ""
 
@@ -334,7 +387,7 @@ to Run-Controllers
 
    ask robot number_robot
    [run penotype_code ]
-   wait 0.005
+   wait ms / 1000
     set number_robot number_robot + 1
   ]
 
@@ -342,29 +395,36 @@ end
 
 ;;;;; RUN ;;;;;
 to Run-Controller
+let num 0
+  let num-robot 0
+  while [num < length load-Multi_Genotype_List][
+   Run-Controller-num num-robot num
+    set num num + 1
+    wait ms / 1000
+  ]
+end
+to Run-Controller-num [num-robot num]
 
   let Multi_Genotype_List load-Multi_Genotype_List
   let number_genotype ""
 
   let number_robot Number_Genotype_Loader - 1
 
-   set number_genotype (item  ((length Multi_Genotype_List  - number_robot) - 1) Multi_Genotype_List)
+   set number_genotype (item  ((length Multi_Genotype_List  - num) - 1) Multi_Genotype_List)
 
    let penotype_code load-controller number_genotype
-   ask robot number_robot
+   ask robot num-robot
    [run penotype_code ]
-   wait 0.005
-
-
 
 end
+
 to Save-Score
   set Score-List replace-item  Number_Genotype_Loader  Score-List score
 end
 to Crossover
 
-  set Crossover_1_Genotype word (substring parent-1-genotype 0 (Bit_Position - 1)) (substring parent-2-genotype (Bit_Position - 1) 37)
-  set Crossover_2_Genotype word (substring parent-2-genotype 0 (Bit_Position - 1)) (substring parent-1-genotype (Bit_Position - 1) 37)
+  set Crossover_1_Genotype word (substring parent-1-genotype 0 (Bit_Position )) (substring parent-2-genotype (Bit_Position ) 37)
+  set Crossover_2_Genotype word (substring parent-2-genotype 0 (Bit_Position )) (substring parent-1-genotype (Bit_Position ) 37)
 end
 to replace [parent Crossover_Genotype]
     ifelse not (Crossover_Genotype = "")[
@@ -386,24 +446,25 @@ end
 to mutate
 ifelse genotype != ""
   [
+
   ifelse substring genotype (bit-position - 1) bit-position = "1"
     [set genotype (replace-item (bit-position - 1) genotype "0")]
     [set genotype (replace-item (bit-position - 1) genotype "1")]
 
-   let Multi_Genotype_List load-Multi_Genotype_List
-    set Multi_Genotype_List replace-item (10 - Number_Genotype_Loader) Multi_Genotype_List genotype
-    set Multi_Genotype append-List Multi_Genotype_List
-
-
+  let Multi_Genotype_List load-Multi_Genotype_List
+  set Multi_Genotype_List replace-item (10 - Number_Genotype_Loader) Multi_Genotype_List genotype
+  set Multi_Genotype append-List Multi_Genotype_List
 
   let number_genotype ""
-  set number_genotype (item (10 - Number_Genotype_Loader) Multi_Genotype_List)
-  set genotype number_genotype
+  ;;set number_genotype (item (10 - Number_Genotype_Loader) Multi_Genotype_List)
+  ;;set genotype number_genotype
   output-print genotype
-  set Phenotype load-controller number_genotype
 
-  output-print (item (10 - Number_Genotype_Loader) Multi_Genotype_List)
+
+  update
+
   ][]
+
 end
 to-report load-Multi_Genotype_List
  let Multi_Genotype_List ["" "" "" "" "" "" "" "" "" ""]
@@ -493,10 +554,13 @@ end
 
 to turn-right
   right 90
+
+
 end
 
 to turn-left
   left 90
+
 end
 
 to rand-turn
@@ -569,13 +633,13 @@ to remove-targets
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-7
-49
-550
-387
+0
+48
+670
+460
 -1
 -1
-13.72
+17.18
 1
 10
 1
@@ -593,12 +657,12 @@ GRAPHICS-WINDOW
 0
 1
 ticks
-30.0
+30
 
 BUTTON
-8
+1
 10
-156
+149
 43
 Setup Evnironment
 setup
@@ -613,9 +677,9 @@ NIL
 1
 
 BUTTON
-163
+150
 10
-309
+296
 43
 Run-Controllers
 Run-Controllers
@@ -629,75 +693,49 @@ NIL
 NIL
 1
 
-SLIDER
-555
-55
-895
-88
-number-robots
-number-robots
-1
-10
-10.0
-1
-1
-NIL
-HORIZONTAL
-
 TEXTBOX
-11
-480
-367
-498
+4
+475
+360
+493
 Genotype selected for mutation
 11
-0.0
-1
-
-INPUTBOX
-595
-140
-896
-336
-multi_genotype
-0010111000000100011111000011111000111\n1011001010111011010011001011010011011\n1110111111101011101110010010101011000\n0011100111000100000010010111000000100\n0101001010001111101010101100011101001\n1101000111001010010111000110001111011\n1110000010010010011000100100101000101\n1101010010101101100100000001011101011\n1101111000110011001001000011011110110\n0001100001011011001001101101011101101
-1
-1
-String
-
-INPUTBOX
-8
-393
-1300
-476
-phenotype
-ifelse not wall-ahead? [turn-right][ifelse not wall-right? [turn-left][move-back]]
-1
 0
+1
+
+INPUTBOX
+705
+224
+1006
+420
+multi_genotype
+1101111110100100100010100101010000011\n0110001111111000100101100110100000001\n1101011100010100010110100110001110110\n1001011001000010010000100001000101110\n0110001000010010000111100101010111111\n1111001100100001001011001110110010010\n0000010100000101111011101110000101111\n1010011010100000010010011101101101010\n1101101101100110010101101110101110100\n1001100001111100101001100111011001011
+1
+1
 String
 
 SLIDER
-24
-567
-957
-600
+15
+560
+965
+593
 bit-position
 bit-position
 1
 37
-20.0
+1
 1
 1
 NIL
 HORIZONTAL
 
 BUTTON
-20
-615
-91
-648
+6
+595
+119
+628
 NIL
-Mutate
+Mutate\n\n
 NIL
 1
 T
@@ -709,84 +747,84 @@ NIL
 1
 
 OUTPUT
-8
-496
-998
-566
+4
+489
+987
+559
 47
 
 SLIDER
-555
-165
-588
-313
+671
+248
+704
+396
 Number
-Number
+number
 1
 10
-10.0
+1
 1
 1
 NIL
 VERTICAL
 
 CHOOSER
-14
-663
-124
-708
+7
+658
+117
+703
 parent-1
 parent-1
 1 3 5 7 9
 0
 
 CHOOSER
-14
-712
-124
-757
+7
+707
+117
+752
 parent-2
 parent-2
 2 4 6 8 10
 0
 
 INPUTBOX
-128
-663
-429
-723
+118
+658
+419
+718
 parent-1-genotype
-0001100001011011001001000011011110110
+NIL
 1
 0
 String
 
 INPUTBOX
-128
-733
-429
-793
+118
+728
+419
+788
 parent-2-genotype
-1101111000110011001001101101011101101
+NIL
 1
 0
 String
 
 CHOOSER
-445
-660
-583
-705
+421
+658
+559
+703
 Bit_Position
-Bit_Position
+bit_position
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36
-16
+35
 
 BUTTON
-445
-730
-582
-790
+420
+725
+557
+785
 Crossover
 Crossover
 NIL
@@ -800,32 +838,32 @@ NIL
 1
 
 INPUTBOX
-595
-660
-895
-720
+561
+659
+861
+719
 crossover_1_genotype
-0001100001011011001001101101011101101
+NIL
 1
 0
 String
 
 INPUTBOX
-595
-730
-895
-790
+560
+725
+860
+785
 crossover_2_genotype
-1101111000110011001001000011011110110
+NIL
 1
 0
 String
 
 BUTTON
-915
-660
-1000
-720
+862
+659
+947
+719
 replace-1
 replace parent-1 Crossover_1_Genotype
 NIL
@@ -839,10 +877,10 @@ NIL
 1
 
 BUTTON
-15
-760
-123
-793
+8
+755
+116
+788
 NIL
 Load
 NIL
@@ -856,10 +894,10 @@ NIL
 1
 
 BUTTON
-553
-348
-896
-386
+704
+425
+1006
+458
 NIL
 Load_Genotype
 NIL
@@ -873,12 +911,12 @@ NIL
 1
 
 BUTTON
-555
-100
-895
-133
+1597
+180
+1827
+211
 Load_Number_Robots
-setup-robots
+Load_Number_Robots
 NIL
 1
 T
@@ -890,20 +928,20 @@ NIL
 1
 
 INPUTBOX
-14
-800
-1309
-970
+1171
+50
+1596
+211
 grammars
-ifelse not S1 [A1][A2]\nifelse not S1 [A1][ifelse not S2 [A2][A3]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][A4]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][A5]]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][ifelse not S5 [A5][A6]]]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][ifelse not S5 [A5][ifelse not S6 [A6][A7]]]]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][ifelse not S5 [A5][ifelse not S6 [A6][ifelse not S7 [A7][A8]]]]]]]\nifelse not S1 [A1][ifelse not S2 [A2][ifelse not S3 [A3][ifelse not S4 [A4][ifelse not S5 [A5][ifelse not S6 [A6][ifelse not S7 [A7][ifelse not S8 [A8][A9]]]]]]]]\n
+ifelse S1 [A1][A2]\nifelse S1 [A1][ifelse S2 [A2][A3]]\nifelse S1 [ifelse S2 [A1][A2]][A3]\nifelse S1 [A1][ifelse S2 [A2][ifelse S3 [A3][A4]]]\nifelse S1 [A1][ifelse S2 [ifelse S3 [A2][A3]][A4]]\nifelse S1 [ifelse S2 [A1][ifelse S3 [A2][A3]]][A4]\nifelse S1 [ifelse S2 [ifelse S3 [A1][A2]][A3]][A4]\nifelse S1 [ifelse S2 [A1][A2]][ifelse S3 [A3][A4]]
 1
 0
 String
 
 BUTTON
-333
+364
 10
-420
+451
 43
 Draw Wall
 set tool \"Draw Wall\"
@@ -918,9 +956,9 @@ NIL
 1
 
 BUTTON
-495
+523
 10
-550
+578
 43
 Eraser
 set tool \"Eraser\"
@@ -935,9 +973,9 @@ NIL
 1
 
 BUTTON
-423
+453
 10
-492
+522
 43
 Target
 set tool \"Target\"
@@ -952,9 +990,9 @@ NIL
 1
 
 BUTTON
-558
+579
 10
-621
+669
 43
 Draw
 draw
@@ -969,10 +1007,10 @@ NIL
 1
 
 BUTTON
-915
-730
-999
-791
+862
+725
+946
+786
 replace-2
 replace parent-2 Crossover_2_Genotype
 NIL
@@ -986,20 +1024,20 @@ NIL
 1
 
 CHOOSER
-1032
-495
-1170
-540
+989
+490
+1129
+535
 Score
-Score
+score
 1 2 3 4 5 6 7 8 9 10
 0
 
 BUTTON
-1188
-494
-1300
-599
+1130
+489
+1242
+589
 Run-Controller
 Run-Controller
 T
@@ -1013,10 +1051,10 @@ NIL
 1
 
 BUTTON
-1034
-548
-1168
-600
+988
+537
+1128
+589
 Save-Score
 Save-Score
 NIL
@@ -1029,6 +1067,102 @@ NIL
 NIL
 1
 
+SLIDER
+674
+10
+1009
+43
+ms
+ms
+25
+1000
+25
+25
+1
+NIL
+HORIZONTAL
+
+INPUTBOX
+1597
+50
+1827
+170
+genotypes-to-run
+3,4\n5,6,7\n3
+1
+1
+String
+
+TEXTBOX
+1598
+15
+1818
+46
+Put the genotype list to run by robot in the \nform \"1,2,4,7\"
+11
+0
+1
+
+INPUTBOX
+1007
+224
+1826
+419
+multi_phenotype
+ifelse wall-right? [ifelse wall-right? [ifelse wall-right? [move-ahead][move-ahead]][move-back]][turn-left]\nifelse wall-back? [turn-left][ifelse wall-ahead? [turn-right][ifelse wall-right? [move-back][turn-right]]]\nifelse wall-left? [ifelse wall-right? [ifelse wall-left? [turn-right][move-ahead]][move-back]][turn-right]\nifelse wall-left? [move-back][ifelse wall-right? [ifelse wall-back? [move-ahead][move-back]][move-back]]\nifelse wall-back? [turn-right][ifelse wall-ahead? [turn-right][ifelse wall-back? [move-back][turn-left]]]\nifelse wall-left? [ifelse wall-ahead? [move-ahead][turn-left]][ifelse wall-left? [move-ahead][turn-right]]\nifelse wall-back? [move-ahead][turn-right]\nifelse wall-back? [ifelse wall-right? [move-ahead][ifelse wall-ahead? [move-back][turn-right]]][turn-left]\nifelse wall-right? [ifelse wall-ahead? [ifelse wall-left? [turn-left][turn-right]][move-ahead]][turn-right]\nifelse wall-right? [move-back][ifelse wall-back? [ifelse wall-back? [turn-right][move-back]][turn-right]]
+1
+0
+String
+
+TEXTBOX
+672
+95
+1290
+160
+Parameters   Var    Choises                                                                 bits   Gens\nGrammer       G       {1,2,3,4,5,6,7,8}                                                    3       [G]\nSensor           S       {wall-back,wall-ahead?,wall-left?,wall-right?}       2       [S1,S2,S3,S4,S5,S6]\nActuator         A       {move back,move,turn-left,turn-right}                    2       [A1,A2,A3,A4,A5,A6,A7,A8]\n\n
+11
+0
+1
+
+TEXTBOX
+673
+61
+1588
+212
+The genotype is created with the format:\n[G S1 S2 S3 S4 S5 S6 A1 A2 A3 A4 A5 A6 A7 A8]
+11
+0
+1
+
+TEXTBOX
+720
+220
+1823
+410
+NIL
+11
+0
+1
+
+TEXTBOX
+125
+665
+413
+781
+NIL
+11
+0
+1
+
+TEXTBOX
+565
+655
+857
+779
+NIL
+11
+0
+1
 @#$#@#$#@
 ## WHAT IS IT?
 
@@ -1371,22 +1505,22 @@ false
 Polygon -7500403 true true 270 75 225 30 30 225 75 270
 Polygon -7500403 true true 30 75 75 30 270 225 225 270
 @#$#@#$#@
-NetLogo 6.1.1
+NetLogo 6.1.0
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
 default
-0.0
--0.2 0 0.0 1.0
-0.0 1 1.0 0.0
-0.2 0 0.0 1.0
+0
+-0.2 0 0 1
+0 1 1 0
+0.2 0 0 1
 link direction
 true
 0
 Line -7500403 true 150 150 90 180
 Line -7500403 true 150 150 210 180
 @#$#@#$#@
-0
+
 @#$#@#$#@

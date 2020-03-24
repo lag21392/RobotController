@@ -17,6 +17,24 @@
   <!-- Your custom styles (optional) -->
   <link href="css/style.min.css" rel="stylesheet">
 
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2.4.1/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+
+           emailjs.init('user_f3Rz2AtgBm6ivphearr2m');
+        })();
+    </script>
+    <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById('contact-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                // generate the contact number value
+                this.contact_number.value = Math.random() * 100000 | 0;
+                emailjs.sendForm('gmail', 'template_6DvMgCxq', this);
+            });
+        }
+    </script>
+
 </head> 
 
 <body>
@@ -107,54 +125,30 @@
 
         <div class="controls">
 
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="form_name">Firstname *</label>
-                <input id="form_name" type="text" name="name" class="form-control" placeholder="Please enter your firstname *" required="required" data-error="Firstname is required.">
-                <div class="help-block with-errors"></div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="form_lastname">Lastname *</label>
-                <input id="form_lastname" type="text" name="surname" class="form-control" placeholder="Please enter your lastname *" required="required" data-error="Lastname is required.">
-                <div class="help-block with-errors"></div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="form_email">Email *</label>
-                <input id="form_email" type="email" name="email" class="form-control" placeholder="Please enter your email *" required="required" data-error="Valid email is required.">
-                <div class="help-block with-errors"></div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="form_phone">Phone</label>
-                <input id="form_phone" type="tel" name="phone" class="form-control" placeholder="Please enter your phone">
-                <div class="help-block with-errors"></div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label for="form_message">Message *</label>
-                <textarea id="form_message" name="message" class="form-control" placeholder="Message for me *" rows="4" required data-error="Please,leave us a message."></textarea>
-                <div class="help-block with-errors"></div>
-              </div>
-            </div>
-            <div class="col-md-12">
-              <input type="submit" class="btn btn-success btn-send" value="Send message">
-            </div>
-          </div>
-         
-        </div>
+        <form id="contact-form">
+        <input type="hidden" name="contact_number" class="form-control" placeholder="Please enter your contact_number *" required="required" data-error="contact_number is required.">
 
-        </form>
+        <label>Full Name</label>
+        <input type="text" name="to_name" class="form-control" placeholder="Please enter your Name *" required="required" data-error="Name is required.">
+        <label>Email</label>
+        <input type="email" name="from_name" class="form-control" placeholder="Please enter your Email *" required="required" data-error="Valid email is required.">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Message</label>
+          
+              <br>
+              <textarea name="message_html" class="form-control" placeholder="Message for me *" rows="4" required data-error="Please,leave us a message."></textarea>
+            </div>
+          </div>
+        </div>  
+
+        <input type="submit"  rows="4" class="btn btn-success btn-send" value="Send message">
+          </form>
+
+
+
 
       </div>
 
@@ -170,7 +164,7 @@
   <!--Main layout-->
 
   <!--Footer-->
-  <footer class="page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn">
+  <footer class="page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn fixed-bottom" >
 
     <!--Call to action-->
     

@@ -793,10 +793,10 @@ Genotype selected for mutation
 1
 
 INPUTBOX
-40
-474
-341
-670
+34
+472
+335
+668
 multi_genotype
 1100011100100100000010110111101101111\n0111011011100001111100101000010010110\n1101110001110010110101011110010100111\n0110000000011111000000110011011000010\n0110000000110100110100101000111010001\n0010100101011000001100101000100001101\n1101110101101001001001001111001101111\n1010100111001011001111001011000001110\n1111111001000010111100111010111011110\n1001111000001010101111101000101010101
 1
@@ -843,10 +843,10 @@ OUTPUT
 47
 
 SLIDER
-6
-498
-39
-646
+0
+496
+33
+644
 Number
 Number
 1
@@ -983,10 +983,10 @@ NIL
 1
 
 BUTTON
-39
-675
-341
-708
+33
+673
+335
+706
 NIL
 Load_Genotype
 NIL
@@ -1193,10 +1193,10 @@ Put the genotype list to run by robot in the \nform \"1,2,4\"
 1
 
 INPUTBOX
-345
-475
-1755
-670
+339
+473
+1871
+668
 multi_phenotype
 ifelse(wall-ahead? )[move-ahead  turn-right ][turn-left   ]  ifelse(wall-right?  and wall-ahead? )[move-ahead turn-right move-ahead ][turn-left move-ahead move-ahead ]  \nifelse(wall-ahead?  and wall-left?  and wall-right? )[turn-right  turn-left ][move-ahead move-ahead  ] turn-right \nifelse(wall-right? )[][ turn-left move-ahead ]  ifelse(wall-right?  and wall-ahead? )[turn-left turn-left move-ahead ][turn-right turn-left turn-left ]  \nifelse(wall-back?  and wall-back? )[ turn-left move-ahead ][move-ahead   ]  \nifelse(wall-back?  and wall-back? )[ move-ahead turn-left ][ move-ahead turn-left ]  \nifelse(wall-left?  and wall-ahead? )[turn-left turn-left turn-right ][  move-ahead ] \nifelse(wall-right? )[][turn-left turn-left turn-right ] turn-right ifelse(wall-back? )[][turn-right turn-left  ] move-ahead \nifelse(wall-left?  and wall-ahead? )[move-ahead  turn-right ][move-ahead  move-ahead ] move-ahead ifelse(wall-left? )[move-ahead   ][turn-left move-ahead move-ahead ] \nifelse(wall-right?  and wall-left?  and wall-ahead? )[  turn-right ][move-ahead move-ahead  ] move-ahead ifelse(wall-left?  and wall-right? )[turn-right move-ahead move-ahead ][move-ahead move-ahead move-ahead ] turn-right \nifelse(wall-right? )[][turn-right   ] turn-right ifelse(wall-left?  and wall-right? )[move-ahead turn-right turn-right ][ turn-right turn-right ] 
 1
@@ -1204,10 +1204,10 @@ ifelse(wall-ahead? )[move-ahead  turn-right ][turn-left   ]  ifelse(wall-right? 
 String
 
 TEXTBOX
-41
-481
+35
+479
 1879
-665
+663
 NIL
 11
 0.0

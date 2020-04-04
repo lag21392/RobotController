@@ -1195,7 +1195,7 @@ Put the genotype list to run by robot in the \nform \"1,2,4\"
 INPUTBOX
 336
 471
-1967
+2068
 666
 multi_phenotype
 ifelse(wall-ahead? )[move-ahead  turn-right ][turn-left   ]  ifelse(wall-right?  and wall-ahead? )[move-ahead turn-right move-ahead ][turn-left move-ahead move-ahead ]  \nifelse(wall-ahead?  and wall-left?  and wall-right? )[turn-right  turn-left ][move-ahead move-ahead  ] turn-right \nifelse(wall-right? )[][ turn-left move-ahead ]  ifelse(wall-right?  and wall-ahead? )[turn-left turn-left move-ahead ][turn-right turn-left turn-left ]  \nifelse(wall-back?  and wall-back? )[ turn-left move-ahead ][move-ahead   ]  \nifelse(wall-back?  and wall-back? )[ move-ahead turn-left ][ move-ahead turn-left ]  \nifelse(wall-left?  and wall-ahead? )[turn-left turn-left turn-right ][  move-ahead ] \nifelse(wall-right? )[][turn-left turn-left turn-right ] turn-right ifelse(wall-back? )[][turn-right turn-left  ] move-ahead \nifelse(wall-left?  and wall-ahead? )[move-ahead  turn-right ][move-ahead  move-ahead ] move-ahead ifelse(wall-left? )[move-ahead   ][turn-left move-ahead move-ahead ] \nifelse(wall-right?  and wall-left?  and wall-ahead? )[  turn-right ][move-ahead move-ahead  ] move-ahead ifelse(wall-left?  and wall-right? )[turn-right move-ahead move-ahead ][move-ahead move-ahead move-ahead ] turn-right \nifelse(wall-right? )[][turn-right   ] turn-right ifelse(wall-left?  and wall-right? )[move-ahead turn-right turn-right ][ turn-right turn-right ] 

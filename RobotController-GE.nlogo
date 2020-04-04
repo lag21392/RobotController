@@ -1001,9 +1001,9 @@ NIL
 
 BUTTON
 700
-436
+415
 1003
-469
+448
 Load_Number_Robots
 Load_Number_Robots
 NIL
@@ -1173,9 +1173,9 @@ HORIZONTAL
 
 INPUTBOX
 701
-228
+207
 1003
-424
+403
 genotypes-to-run
 1,2,5\n2\n3\n4\n5\n6\n7\n8\n9\n10
 1
@@ -1184,9 +1184,9 @@ String
 
 TEXTBOX
 703
-187
+166
 995
-218
+197
 Put the genotype list to run by robot in the \nform \"1,2,4\"
 11
 0.0

@@ -783,31 +783,31 @@ NIL
 1
 
 TEXTBOX
-4
-475
-360
-493
+9
+722
+365
+740
 Genotype selected for mutation
 11
 0.0
 1
 
 INPUTBOX
-704
-235
-1005
-431
+40
+474
+341
+670
 multi_genotype
-1101000010000010010010001100111011001\n1101110000110111011100101000010010110\n1101101010001111011110001011000000100\n0101101001100101111010111010101010010\n1101011000000111101101100011111001101\n0000100011110000100000101111000010100\n1101111101010111010000110010000110110\n0101111101111110010111000011011011110\n1011010001101010101100000111101000111\n1011111110001111000111000001011010011
+1100011100100100000010110111101101111\n0111011011100001111100101000010010110\n1101110001110010110101011110010100111\n0110000000011111000000110011011000010\n0110000000110100110100101000111010001\n0010100101011000001100101000100001101\n1101110101101001001001001111001101111\n1010100111001011001111001011000001110\n1111111001000010111100111010111011110\n1001111000001010101111101000101010101
 1
 1
 String
 
 SLIDER
-15
-560
-965
-593
+20
+807
+970
+840
 bit-position
 bit-position
 1
@@ -819,10 +819,10 @@ NIL
 HORIZONTAL
 
 BUTTON
-6
-595
-119
-628
+11
+842
+124
+875
 NIL
 Mutate\n\n
 NIL
@@ -836,17 +836,17 @@ NIL
 1
 
 OUTPUT
-4
-489
-987
-559
+9
+736
+992
+806
 47
 
 SLIDER
-670
-259
-703
-407
+6
+498
+39
+646
 Number
 Number
 1
@@ -858,30 +858,30 @@ NIL
 VERTICAL
 
 CHOOSER
-7
-658
-117
-703
+12
+905
+122
+950
 parent-1
 parent-1
 1 3 5 7 9
 0
 
 CHOOSER
-7
-707
-117
-752
+12
+954
+122
+999
 parent-2
 parent-2
 2 4 6 8 10
 0
 
 INPUTBOX
-118
-658
-419
-718
+123
+905
+424
+965
 parent-1-genotype
 NIL
 1
@@ -889,10 +889,10 @@ NIL
 String
 
 INPUTBOX
-118
-728
-419
-788
+123
+975
+424
+1035
 parent-2-genotype
 NIL
 1
@@ -900,20 +900,20 @@ NIL
 String
 
 CHOOSER
-421
-658
-559
-703
+426
+905
+564
+950
 Bit_Position
 Bit_Position
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36
 35
 
 BUTTON
-420
-725
-557
-785
+425
+972
+562
+1032
 Crossover
 Crossover
 NIL
@@ -927,10 +927,10 @@ NIL
 1
 
 INPUTBOX
-561
-659
-861
-719
+566
+906
+866
+966
 crossover_1_genotype
 NIL
 1
@@ -938,10 +938,10 @@ NIL
 String
 
 INPUTBOX
-560
-725
-860
-785
+565
+972
+865
+1032
 crossover_2_genotype
 NIL
 1
@@ -949,10 +949,10 @@ NIL
 String
 
 BUTTON
-862
-659
-947
-719
+867
+906
+952
+966
 replace-1
 replace parent-1 Crossover_1_Genotype
 NIL
@@ -966,10 +966,10 @@ NIL
 1
 
 BUTTON
-8
-755
-116
-788
+13
+1002
+121
+1035
 NIL
 Load
 NIL
@@ -983,10 +983,10 @@ NIL
 1
 
 BUTTON
-703
-436
-1005
-469
+39
+675
+341
+708
 NIL
 Load_Genotype
 NIL
@@ -1000,10 +1000,10 @@ NIL
 1
 
 BUTTON
-701
-178
-1004
-211
+700
+436
+1003
+469
 Load_Number_Robots
 Load_Number_Robots
 NIL
@@ -1017,10 +1017,10 @@ NIL
 1
 
 INPUTBOX
-1247
-489
-1628
-783
+1011
+50
+1392
+464
 grammars
 0 ::=   \"1\"\n         |\"13\"              \n         |\"131\"                      \n         |\"1313\"\n1 ::=   \"ifelse(2)[333][333] \"\n         |\"ifelse(2)[][333] \"\n         |\"ifelse(2 and 2)[333][333] \"\n         |\"ifelse(2 and 2 and 2)[333][333] \"\n2 ::=   \"wall-back? \"\n         |\"wall-ahead? \"\n         |\"wall-left? \"\n         |\"wall-right? \"\n3 ::=   \" \"\n         |\"turn-left \"\n         |\"turn-right \"\n         |\"move-ahead \"
 1
@@ -1096,10 +1096,10 @@ NIL
 1
 
 BUTTON
-862
-725
-946
-786
+867
+972
+951
+1033
 replace-2
 replace parent-2 Crossover_2_Genotype
 NIL
@@ -1113,20 +1113,20 @@ NIL
 1
 
 CHOOSER
-989
-490
-1129
-535
+994
+737
+1134
+782
 Score
 Score
 1 2 3 4 5 6 7 8 9 10
 0
 
 BUTTON
-1130
-489
-1242
-589
+1135
+736
+1247
+836
 Run-Controller
 Run-Controller
 T
@@ -1140,10 +1140,10 @@ NIL
 1
 
 BUTTON
-988
-537
-1128
-589
+993
+784
+1133
+836
 Save-Score
 Save-Score
 NIL
@@ -1157,10 +1157,10 @@ NIL
 1
 
 SLIDER
-1005
-10
-1340
-43
+704
+50
+1003
+83
 ms
 ms
 25
@@ -1172,82 +1172,82 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-702
-51
-1004
-171
+701
+228
+1003
+424
 genotypes-to-run
-1,2,3\n7\n8
+1,2,5\n2\n3\n4\n5\n6\n7\n8\n9\n10
 1
 1
 String
 
 TEXTBOX
-704
-13
-996
-44
+703
+187
+995
+218
 Put the genotype list to run by robot in the \nform \"1,2,4\"
 11
 0.0
 1
 
 INPUTBOX
-1009
-236
-2179
-431
+345
+475
+1755
+670
 multi_phenotype
-ifelse(wall-back? )[][ turn-right  ]  ifelse(wall-ahead?  and wall-back? )[turn-right  move-ahead ][ move-ahead turn-right ] move-ahead \nifelse(wall-right? )[][  move-ahead ] turn-left ifelse(wall-ahead?  and wall-right?  and wall-back? )[turn-right turn-right  ][turn-left  turn-right ] move-ahead \nifelse(wall-left? )[][turn-right turn-right  ] move-ahead ifelse(wall-ahead?  and wall-right?  and wall-left? )[ turn-right move-ahead ][   ] turn-right \nifelse(wall-left? )[][turn-right turn-left turn-right ] turn-left \nifelse(wall-ahead? )[][turn-right   ] turn-left ifelse(wall-left?  and wall-right?  and wall-ahead? )[turn-right  move-ahead ][move-ahead turn-right turn-left ] turn-right \nifelse(wall-left? )[ move-ahead move-ahead ][  turn-right ] \nifelse(wall-right? )[][move-ahead turn-left turn-left ] turn-left ifelse(wall-ahead?  and wall-back?  and wall-back? )[move-ahead  turn-right ][ turn-left turn-right ] move-ahead \nifelse(wall-right? )[][move-ahead turn-left move-ahead ] move-ahead \nifelse(wall-ahead?  and wall-back?  and wall-ahead? )[turn-right turn-right turn-right ][turn-right move-ahead  ]  ifelse(wall-right? )[][turn-right turn-right  ] \nifelse(wall-right?  and wall-right?  and wall-left? )[ move-ahead move-ahead ][ turn-left move-ahead ]  ifelse(wall-ahead? )[turn-left turn-right turn-right ][turn-left turn-left move-ahead ] 
+ifelse(wall-ahead? )[move-ahead  turn-right ][turn-left   ]  ifelse(wall-right?  and wall-ahead? )[move-ahead turn-right move-ahead ][turn-left move-ahead move-ahead ]  \nifelse(wall-ahead?  and wall-left?  and wall-right? )[turn-right  turn-left ][move-ahead move-ahead  ] turn-right \nifelse(wall-right? )[][ turn-left move-ahead ]  ifelse(wall-right?  and wall-ahead? )[turn-left turn-left move-ahead ][turn-right turn-left turn-left ]  \nifelse(wall-back?  and wall-back? )[ turn-left move-ahead ][move-ahead   ]  \nifelse(wall-back?  and wall-back? )[ move-ahead turn-left ][ move-ahead turn-left ]  \nifelse(wall-left?  and wall-ahead? )[turn-left turn-left turn-right ][  move-ahead ] \nifelse(wall-right? )[][turn-left turn-left turn-right ] turn-right ifelse(wall-back? )[][turn-right turn-left  ] move-ahead \nifelse(wall-left?  and wall-ahead? )[move-ahead  turn-right ][move-ahead  move-ahead ] move-ahead ifelse(wall-left? )[move-ahead   ][turn-left move-ahead move-ahead ] \nifelse(wall-right?  and wall-left?  and wall-ahead? )[  turn-right ][move-ahead move-ahead  ] move-ahead ifelse(wall-left?  and wall-right? )[turn-right move-ahead move-ahead ][move-ahead move-ahead move-ahead ] turn-right \nifelse(wall-right? )[][turn-right   ] turn-right ifelse(wall-left?  and wall-right? )[move-ahead turn-right turn-right ][ turn-right turn-right ] 
 1
 0
 String
 
 TEXTBOX
-705
-242
-2160
-426
-NIL
-11
-0.0
-1
-
-TEXTBOX
-125
+41
+481
+1750
 665
-413
-781
 NIL
 11
 0.0
 1
 
 TEXTBOX
-565
-681
-859
-779
+130
+912
+418
+1028
 NIL
 11
 0.0
 1
 
 TEXTBOX
-9
-638
-159
-656
+570
+928
+864
+1026
+NIL
+11
+0.0
+1
+
+TEXTBOX
+14
+885
+164
+903
 Crossover
 11
 0.0
 1
 
 TEXTBOX
-1253
-489
-1626
-778
+1020
+49
+1393
+459
 NIL
 11
 0.0

@@ -1019,7 +1019,7 @@ NIL
 INPUTBOX
 1247
 489
-1628
+1502
 783
 grammars
 0 ::=   \"1\"\n         |\"13\"              \n         |\"131\"                      \n         |\"1313\"\n1 ::=   \"ifelse(2)[333][333] \"\n         |\"ifelse(2)[][333] \"\n         |\"ifelse(2 and 2)[333][333] \"\n         |\"ifelse(2 and 2 and 2)[333][333] \"\n2 ::=   \"wall-back? \"\n         |\"wall-ahead? \"\n         |\"wall-left? \"\n         |\"wall-right? \"\n3 ::=   \" \"\n         |\"turn-left \"\n         |\"turn-right \"\n         |\"move-ahead \"
@@ -1195,7 +1195,7 @@ Put the genotype list to run by robot in the \nform \"1,2,4\"
 INPUTBOX
 1009
 236
-2179
+2210
 431
 multi_phenotype
 ifelse(wall-back? )[][ turn-right  ]  ifelse(wall-ahead?  and wall-back? )[turn-right  move-ahead ][ move-ahead turn-right ] move-ahead \nifelse(wall-right? )[][  move-ahead ] turn-left ifelse(wall-ahead?  and wall-right?  and wall-back? )[turn-right turn-right  ][turn-left  turn-right ] move-ahead \nifelse(wall-left? )[][turn-right turn-right  ] move-ahead ifelse(wall-ahead?  and wall-right?  and wall-left? )[ turn-right move-ahead ][   ] turn-right \nifelse(wall-left? )[][turn-right turn-left turn-right ] turn-left \nifelse(wall-ahead? )[][turn-right   ] turn-left ifelse(wall-left?  and wall-right?  and wall-ahead? )[turn-right  move-ahead ][move-ahead turn-right turn-left ] turn-right \nifelse(wall-left? )[ move-ahead move-ahead ][  turn-right ] \nifelse(wall-right? )[][move-ahead turn-left turn-left ] turn-left ifelse(wall-ahead?  and wall-back?  and wall-back? )[move-ahead  turn-right ][ turn-left turn-right ] move-ahead \nifelse(wall-right? )[][move-ahead turn-left move-ahead ] move-ahead \nifelse(wall-ahead?  and wall-back?  and wall-ahead? )[turn-right turn-right turn-right ][turn-right move-ahead  ]  ifelse(wall-right? )[][turn-right turn-right  ] \nifelse(wall-right?  and wall-right?  and wall-left? )[ move-ahead move-ahead ][ turn-left move-ahead ]  ifelse(wall-ahead? )[turn-left turn-right turn-right ][turn-left turn-left move-ahead ] 
@@ -1206,7 +1206,7 @@ String
 TEXTBOX
 705
 242
-2160
+2179
 426
 NIL
 11
@@ -1246,7 +1246,7 @@ Crossover
 TEXTBOX
 1253
 489
-1626
+1631
 778
 NIL
 11

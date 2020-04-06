@@ -219,11 +219,12 @@ to Load_Number_Robots
   ifelse(verification = true)[
   set number-robots length split Genotypes-to-run "\n"
   setup-robots
-  show "se verifico bien"
+
+
   ][
   set number-robots 0
   setup-robots
-  show "Se verifico mal"
+  user-message (word "poorly defined genotypes-to-run")
   ]
 
 
@@ -374,6 +375,7 @@ to load-multi-phenotype
     ;set multi_phenotype (word multi_phenotype "\n" (load-controller_GA number_genotype) )
 
     ;carga de phenotype vercion GE
+
     set multi_phenotype (word multi_phenotype "\n" (load-controller_GE number_genotype 2) )
 
     set Number_Genotype_Loader_ Number_Genotype_Loader_ + 1]
@@ -798,7 +800,7 @@ INPUTBOX
 335
 668
 multi_genotype
-1100011100100100000010110111101101111\n0111011011100001111100101000010010110\n1101110001110010110101011110010100111\n0110000000011111000000110011011000010\n0110000000110100110100101000111010001\n0010100101011000001100101000100001101\n1101110101101001001001001111001101111\n1010100111001011001111001011000001110\n1111111001000010111100111010111011110\n1001111000001010101111101000101010101
+0100010010100000100011111010100110110\n0111101110011010111000110010001111001\n1010101010110010110010100100011101011\n1010111111100101010100100000100000010\n0100111010111110010101011011011111110\n1110101110110000101000101010110111111\n1010010110101110100111110010111001000\n0000100110101100011110011000011010010\n1001000000011001001011010111011011011\n0111000010101101101010101011000101101
 1
 1
 String
@@ -1177,7 +1179,7 @@ INPUTBOX
 1003
 403
 genotypes-to-run
-1,2,5\n2\n3\n4\n5\n6\n7\n8\n9\n10
+1,2,5\n2\n3
 1
 1
 String
@@ -1198,7 +1200,7 @@ INPUTBOX
 2068
 666
 multi_phenotype
-ifelse(wall-ahead? )[move-ahead  turn-right ][turn-left   ]  ifelse(wall-right?  and wall-ahead? )[move-ahead turn-right move-ahead ][turn-left move-ahead move-ahead ]  \nifelse(wall-ahead?  and wall-left?  and wall-right? )[turn-right  turn-left ][move-ahead move-ahead  ] turn-right \nifelse(wall-right? )[][ turn-left move-ahead ]  ifelse(wall-right?  and wall-ahead? )[turn-left turn-left move-ahead ][turn-right turn-left turn-left ]  \nifelse(wall-back?  and wall-back? )[ turn-left move-ahead ][move-ahead   ]  \nifelse(wall-back?  and wall-back? )[ move-ahead turn-left ][ move-ahead turn-left ]  \nifelse(wall-left?  and wall-ahead? )[turn-left turn-left turn-right ][  move-ahead ] \nifelse(wall-right? )[][turn-left turn-left turn-right ] turn-right ifelse(wall-back? )[][turn-right turn-left  ] move-ahead \nifelse(wall-left?  and wall-ahead? )[move-ahead  turn-right ][move-ahead  move-ahead ] move-ahead ifelse(wall-left? )[move-ahead   ][turn-left move-ahead move-ahead ] \nifelse(wall-right?  and wall-left?  and wall-ahead? )[  turn-right ][move-ahead move-ahead  ] move-ahead ifelse(wall-left?  and wall-right? )[turn-right move-ahead move-ahead ][move-ahead move-ahead move-ahead ] turn-right \nifelse(wall-right? )[][turn-right   ] turn-right ifelse(wall-left?  and wall-right? )[move-ahead turn-right turn-right ][ turn-right turn-right ] 
+ifelse(wall-ahead? )[ turn-right turn-right ][  turn-right ]  \nifelse(wall-left?  and wall-right?  and wall-left? )[turn-left turn-right turn-right ][move-ahead turn-right  ] move-ahead \nifelse(wall-left?  and wall-left? )[turn-right move-ahead  ][turn-right move-ahead  ] turn-right ifelse(wall-ahead?  and wall-back? )[turn-left move-ahead turn-left ][turn-left turn-left turn-right ] \nifelse(wall-right?  and wall-right? )[move-ahead turn-right turn-left ][turn-left turn-left turn-left ]  ifelse(wall-back?  and wall-back? )[turn-right   ][turn-left turn-left turn-right ] \nifelse(wall-right? )[turn-right turn-right move-ahead ][move-ahead turn-right turn-left ] turn-left \nifelse(wall-left?  and wall-right? )[turn-right move-ahead  ][ turn-right turn-right ]  ifelse(wall-left?  and wall-left? )[move-ahead turn-left move-ahead ][move-ahead move-ahead turn-right ] turn-right \nifelse(wall-ahead?  and wall-ahead? )[turn-right turn-right move-ahead ][turn-right turn-right turn-left ] move-ahead ifelse(wall-back?  and wall-left?  and wall-right? )[turn-right turn-left  ][ turn-right turn-left ] \nifelse(wall-left? )[turn-left turn-right turn-right ][move-ahead  turn-left ] \nifelse(wall-back? )[][  turn-left ] turn-right ifelse(wall-back? )[][turn-right move-ahead turn-left ] \nifelse(wall-back?  and wall-back?  and wall-left? )[turn-right move-ahead turn-left ][turn-right turn-right turn-right ] turn-right 
 1
 0
 String
@@ -1206,7 +1208,7 @@ String
 TEXTBOX
 35
 479
-1836
+2064
 663
 NIL
 11

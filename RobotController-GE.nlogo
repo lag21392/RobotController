@@ -50,6 +50,7 @@ globals
   Number_Genotype_Loader
   Score-list
   number-robots
+  Vector_multi_phenotype
 ]
 
 ;;;; SETUP ;;;;;;
@@ -369,23 +370,23 @@ to load-multi-phenotype
 
   set multi_phenotype  (load-controller_GE number_genotype 2)
   set Number_Genotype_Loader_ Number_Genotype_Loader_ + 1
+  set Vector_multi_phenotype ["" "" "" "" "" "" "" "" "" ""]
   while [Number_Genotype_Loader_ < 10]
     [set number_genotype (item (Number_Genotype_Loader_) Multi_Genotype_List)
 
 
-    ;carga de phenotype vercion GA
-    ;set multi_phenotype (word multi_phenotype "\n" (load-controller_GA number_genotype) )
+
 
     ;carga de phenotype vercion GE
-
-    set multi_phenotype (word multi_phenotype "\n" (load-controller_GE number_genotype 2) )
+    set Vector_multi_phenotype (replace-item Number_Genotype_Loader_ Vector_multi_phenotype (load-controller_GE number_genotype 2))
+    set multi_phenotype (word multi_phenotype "\n" (item Number_Genotype_Loader_ Vector_multi_phenotype) )
 
     set Number_Genotype_Loader_ Number_Genotype_Loader_ + 1]
 end
 
 to Run-Controllers
   ;;cargar
-  let list_phenotype split multi_phenotype "\n"
+  let list_phenotype Vector_multi_phenotype
   let list_nums_phenotypes split Genotypes-to-run "\n"
   let num_robot 0
   let i 0
@@ -802,7 +803,7 @@ INPUTBOX
 335
 668
 multi_genotype
-0110000110111010010010011101110111011\n0010101011111111101100100101010000101\n0110011010010101011100011111011000111\n1111000010111101100100001000111100101\n0011101100000000101001000101010000110\n0000101111011111101111100111010001001\n0011001111101011000000001101101011011\n1101110101001101111110000100010010110\n0110101001010000000111000011101010100\n0110000000011110111110111110100011111
+0010101000000101000000101100011000011\n0100110011001110111111101010101000000\n1100011011110001011101101110111001111\n0011001110000001001110100010011111100\n0000000111101000000100011010000110100\n0010101100011011010001100101110110010\n0011111100100110101110000000011000100\n0011100000010101010001110010011111000\n0011111000000110110000011110101010010\n1101100111101110001110101111101001011
 1
 1
 String
@@ -887,7 +888,7 @@ INPUTBOX
 424
 965
 parent-1-genotype
-0110000000011110111110111110100011110
+NIL
 1
 0
 String
@@ -898,7 +899,7 @@ INPUTBOX
 424
 1035
 parent-2-genotype
-0110101001010000000111000011101010101
+NIL
 1
 0
 String
@@ -936,7 +937,7 @@ INPUTBOX
 866
 966
 crossover_1_genotype
-0110000000011110111110111110100011111
+NIL
 1
 0
 String
@@ -947,7 +948,7 @@ INPUTBOX
 865
 1032
 crossover_2_genotype
-0110101001010000000111000011101010100
+NIL
 1
 0
 String
@@ -1202,7 +1203,7 @@ INPUTBOX
 2303
 666
 multi_phenotype
-ifelse(wall-back?  and wall-ahead? )[turn-right move-ahead turn-right ][turn-right turn-left  ] turn-right \nifelse(wall-left?  and wall-left? )[move-ahead move-ahead move-ahead ][move-ahead turn-right move-ahead ] \nifelse(wall-ahead?  and wall-left? )[turn-right turn-left turn-left ][turn-left turn-left move-ahead ]  \nifelse(wall-back?  and wall-back?  and wall-left? )[move-ahead move-ahead turn-left ][turn-right turn-left  ]  ifelse(wall-back?  and wall-right? )[move-ahead  turn-right ][turn-right move-ahead  ]  \nifelse(wall-left?  and wall-right?  and wall-back? )[   ][turn-right turn-right turn-left ] \nifelse(wall-left? )[move-ahead move-ahead turn-left ][move-ahead move-ahead turn-right ] \nifelse(wall-back?  and wall-right?  and wall-right? )[turn-right turn-right move-ahead ][   ] \nifelse(wall-right? )[][turn-left turn-left  ] move-ahead ifelse(wall-right? )[][move-ahead turn-right  ] turn-left \nifelse(wall-left?  and wall-left? )[turn-left turn-left  ][  turn-left ] move-ahead \nifelse(wall-back?  and wall-back? )[ turn-left move-ahead ][turn-right move-ahead move-ahead ] turn-right 
+ifelse(wall-left?  and wall-left? )[  turn-left ][turn-left   ] \nifelse(wall-right? )[ move-ahead  ][move-ahead turn-right move-ahead ] move-ahead \nifelse(wall-ahead? )[turn-right move-ahead move-ahead ][ turn-left turn-left ] move-ahead ifelse(wall-left? )[][move-ahead turn-right move-ahead ] turn-right \nifelse(wall-back?  and wall-right?  and wall-left? )[  turn-left ][ move-ahead turn-right ] \nifelse(wall-back? )[turn-left move-ahead turn-right ][turn-right   ] \nifelse(wall-left?  and wall-right? )[ turn-left turn-right ][move-ahead turn-left  ] \nifelse(wall-right?  and wall-right?  and wall-back? )[turn-right turn-left turn-right ][turn-right move-ahead turn-right ] \nifelse(wall-left?  and wall-back?  and wall-back? )[turn-left turn-left turn-left ][turn-left  turn-left ] \nifelse(wall-right?  and wall-left?  and wall-back? )[ turn-left turn-right ][move-ahead   ] \nifelse(wall-left? )[][turn-left move-ahead turn-right ] move-ahead ifelse(wall-back?  and wall-right? )[turn-right turn-right move-ahead ][move-ahead turn-right turn-right ] turn-left 
 1
 0
 String

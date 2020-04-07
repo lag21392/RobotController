@@ -1199,7 +1199,7 @@ Put the genotype list to run by robot in the \nform \"1,2,4\"
 INPUTBOX
 336
 471
-2303
+2107
 666
 multi_phenotype
 ifelse(wall-back?  and wall-ahead? )[turn-right move-ahead turn-right ][turn-right turn-left  ] turn-right \nifelse(wall-left?  and wall-left? )[move-ahead move-ahead move-ahead ][move-ahead turn-right move-ahead ] \nifelse(wall-ahead?  and wall-left? )[turn-right turn-left turn-left ][turn-left turn-left move-ahead ]  \nifelse(wall-back?  and wall-back?  and wall-left? )[move-ahead move-ahead turn-left ][turn-right turn-left  ]  ifelse(wall-back?  and wall-right? )[move-ahead  turn-right ][turn-right move-ahead  ]  \nifelse(wall-left?  and wall-right?  and wall-back? )[   ][turn-right turn-right turn-left ] \nifelse(wall-left? )[move-ahead move-ahead turn-left ][move-ahead move-ahead turn-right ] \nifelse(wall-back?  and wall-right?  and wall-right? )[turn-right turn-right move-ahead ][   ] \nifelse(wall-right? )[][turn-left turn-left  ] move-ahead ifelse(wall-right? )[][move-ahead turn-right  ] turn-left \nifelse(wall-left?  and wall-left? )[turn-left turn-left  ][  turn-left ] move-ahead \nifelse(wall-back?  and wall-back? )[ turn-left move-ahead ][turn-right move-ahead move-ahead ] turn-right 
@@ -1210,7 +1210,7 @@ String
 TEXTBOX
 35
 479
-2301
+2064
 663
 NIL
 11

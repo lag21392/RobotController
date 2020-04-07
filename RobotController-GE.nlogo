@@ -1022,8 +1022,8 @@ NIL
 
 INPUTBOX
 1011
-50
-1392
+179
+1356
 464
 grammars
 0 ::=   \"1\"\n         |\"13\"              \n         |\"131\"                      \n         |\"1313\"\n1 ::=   \"ifelse(2)[333][333] \"\n         |\"ifelse(2)[][333] \"\n         |\"ifelse(2 and 2)[333][333] \"\n         |\"ifelse(2 and 2 and 2)[333][333] \"\n2 ::=   \"wall-back? \"\n         |\"wall-ahead? \"\n         |\"wall-left? \"\n         |\"wall-right? \"\n3 ::=   \" \"\n         |\"turn-left \"\n         |\"turn-right \"\n         |\"move-ahead \"
@@ -1177,7 +1177,7 @@ HORIZONTAL
 
 INPUTBOX
 701
-207
+179
 1003
 403
 genotypes-to-run
@@ -1187,11 +1187,11 @@ genotypes-to-run
 String
 
 TEXTBOX
-703
-166
-995
-197
-Put the genotype list to run by robot in the \nform \"1,2,4\"
+704
+149
+996
+180
+Put the genotype list to run by robot in the form \"1,2,4\"
 11
 0.0
 1
@@ -1248,10 +1248,10 @@ Crossover
 1
 
 TEXTBOX
-1020
-49
-1393
-459
+1022
+183
+1348
+454
 NIL
 11
 0.0
